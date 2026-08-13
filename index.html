@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>起源电竞俱乐部·三角洲属性检测</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft Yahei", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        }
+        :root {
+            --main-green: #00ffb1;
+            --green-glow: rgba(0, 255, 177, 0.55);
+            --bg-deep: #070a09;
+            --bg-panel: #0d1310;
+            --bg-panel-2: #111a16;
+            --border-dark: #1a332a;
+            --text-main: #e0f5ed;
+            --text-sub: #7aa899;
+        }
+        body {
+            background: var(--bg-deep);
+            color: var(--text-main);
+            padding: 20px;
+            min-height: 100vh;
+            background-image:
+                linear-gradient(rgba(0, 255, 177, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 177, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* 背景扫描线动效 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 255, 177, 0.04) 50%,
+                transparent 100%
+            );
+            animation: scanLine 8s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes scanLine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .logo-wrap {
+            max-width: 640px;
+            margin: 0 auto 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-wrap img {
+            height: 60px;
+            filter: drop-shadow(0 0 8px var(--green-glow));
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-dark);
+            padding: 32px 28px;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                0 0 20px rgba(0, 255, 177, 0.1),
+                inset 0 0 30px rgba(0, 255, 177, 0.03);
+            clip-path: polygon(
+                12px 0,
+                100% 0,
+                100% calc(100% - 12px),
+                calc(100% - 12px) 100%,
+                0 100%,
+                0 12px
+            );
+        }
+        .container::before,
+        .container::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--main-green);
+        }
+        .container::before {
+            top: -1px; left: -1px;
+            border-right: none; border-bottom: none;
+        }
+        .container::after {
+            bottom: -1px; right: -1px;
+            border-left: none; border-top: none;
+        }
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .title {
+            font-size: 22px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--main-green);
+            text-shadow: 0 0 12px var(--green-glow);
+            letter-spacing: 2px;
+        }
+        .desc {
+            text-align: center;
+            color: var(--text-sub);
+            margin-bottom: 28px;
+            font-size: 14px;
+            line-height: 1.7;
+            letter-spacing: 1px;
+        }
+        .input-wrap { margin-bottom: 24px; }
+        .input-wrap label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        #playerId {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border-dark);
+            color: var(--main-green);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        #playerId:focus {
+            border-color: var(--main-green);
+            box-shadow: 0 0 12px var(--green-glow);
+        }
+        .notice-block, .bonus-tip {
+            background: rgba(0, 255, 177, 0.05);
+            padding: 16px;
+            border: 1px solid var(--border-dark);
+            border-left: 3px solid var(--main-green);
+            margin: 20px 0;
+        }
+        .notice-block p, .bonus-tip p {
+            color: var(--text-main);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        .notice-block strong, .bonus-tip strong {
+            color: var(--main-green);
+            font-weight: 600;
+        }
+        .bonus-tip h4 {
+            color: var(--main-green);
+            margin-bottom: 8px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+        .progress-wrap { margin-bottom: 24px; }
+        .progress-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-align: right;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--border-dark);
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--main-green);
+            width: 0%;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px var(--green-glow);
+            position: relative;
+        }
+        .progress-fill::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 30px; height: 100%;
+            background: linear-gradient(to left, rgba(255,255,255,0.4), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+        @keyframes progressShine {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .question {
+            margin-bottom: 26px;
+            padding: 16px 14px 20px;
+            border-bottom: 1px dashed var(--border-dark);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        /* 已作答题目整框高亮 */
+        .question.done {
+            background: rgba(0, 255, 177, 0.06);
+            box-shadow: 0 0 10px rgba(0, 255, 177, 0.18);
+            border: 1px solid rgba(0, 255, 177, 0.35);
+        }
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .q-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 14px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+        .options label {
+            display: block;
+            border: 1px solid var(--border-dark);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-sub);
+            font-size: 14px;
+            background: rgba(0, 255, 177, 0.02);
+            position: relative;
+        }
+        .options label:hover {
+            border-color: var(--main-green);
+            color: var(--text-main);
+            background: rgba(0, 255, 177, 0.08);
+            transform: translateX(4px);
+        }
+        .options input {
+            margin-right: 10px;
+            accent-color: var(--main-green);
+        }
+        .options label:has(input:checked) {
+            border-color: var(--main-green);
+            color: var(--main-green);
+            background: rgba(0, 255, 177, 0.1);
+            box-shadow: 0 0 8px var(--green-glow);
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        button {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid var(--main-green);
+            background: transparent;
+            color: var(--main-green);
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,177,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        button:hover::before { left: 100%; }
+        button:hover {
+            background: rgba(0, 255, 177, 0.15);
+            box-shadow: 0 0 15px var(--green-glow);
+        }
+        .btn-prev {
+            border-color: var(--border-dark);
+            color: var(--text-sub);
+        }
+        .btn-prev:hover {
+            border-color: var(--main-green);
+            color: var(--main-green);
+        }
+        .btn-start, .btn-submit, .btn-next {
+            background: rgba(0, 255, 177, 0.1);
+        }
+        .copy-btn {
+            margin-top: 12px;
+            border-color: var(--border-dark);
+            color: var(--text-sub);
+        }
+        .copy-btn:hover {
+            border-color: var(--main-green);
+            color: var(--main-green);
+        }
+        .result-img {
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-dark);
+            overflow: hidden;
+            background: var(--bg-panel-2);
+        }
+        .result-img img {
+            width: 100%;
+            display: block;
+            filter: saturate(0.8) hue-rotate(10deg);
+        }
+        .result-id-line {
+            font-size: 15px;
+            text-align: center;
+            margin: 12px 0;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+        .result-tag {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--main-green);
+            margin: 10px 0;
+            text-shadow: 0 0 12px var(--green-glow);
+            letter-spacing: 3px;
+        }
+        .result-dim {
+            margin: 10px 0 20px;
+            font-size: 12px;
+            color: var(--text-sub);
+            text-align: center;
+            letter-spacing: 2px;
+            padding: 8px;
+            border-top: 1px dashed var(--border-dark);
+            border-bottom: 1px dashed var(--border-dark);
+        }
+        .result-text {
+            line-height: 1.8;
+            color: var(--text-main);
+            font-size: 14px;
+            text-align: justify;
+        }
+        /* ========== 二维码区域 (4个) ========== */
+        .qr-wrap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .qr-item {
+            text-align: center;
+            border: 1px solid var(--border-dark);
+            padding: 12px 6px;
+            background: rgba(0, 255, 177, 0.03);
+            transition: border-color 0.25s;
+        }
+        .qr-item:hover {
+            border-color: var(--main-green);
+        }
+        .qr-title {
+            font-size: 12px;
+            color: var(--main-green);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .qr-item img {
+            width: 100%;
+            max-width: 100px;
+            display: block;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 4px;
+        }
+        .qr-placeholder {
+            aspect-ratio: 1/1;
+            width: 100%;
+            max-width: 100px;
+            margin: 0 auto;
+            background: #111a16;
+            border: 1px dashed var(--border-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 11px;
+            border-radius: 4px;
+        }
+        /* ========== KOOK频道条 ========== */
+        .kook-bar {
+            margin-top: 16px;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid var(--main-green);
+            background: rgba(0, 255, 177, 0.08);
+            color: var(--text-main);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .kook-bar strong {
+            color: var(--main-green);
+            font-size: 16px;
+            margin: 0 4px;
+            text-shadow: 0 0 8px var(--green-glow);
+        }
+        /* ========== 自定义全局弹窗（居中赛博UI） ========== */
+        .modal-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .modal-mask.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-box {
+            width: 90%;
+            max-width: 420px;
+            background: var(--bg-panel);
+            border: 1px solid var(--main-green);
+            padding: 30px 24px;
+            clip-path: polygon(10px 0,100% 0,100% calc(100%-10px),calc(100%-10px) 100%,0 100%,0 10px);
+            box-shadow: 0 0 25px var(--green-glow);
+            position: relative;
+            animation: modalPop 0.28s ease-out;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity:0; }
+            100% { transform: scale(1); opacity:1; }
+        }
+        .modal-box::before,.modal-box::after {
+            content:"";
+            position:absolute;
+            width:16px;height:16px;
+            border:2px solid var(--main-green);
+        }
+        .modal-box::before { top:-1px;left:-1px;border-right:none;border-bottom:none; }
+        .modal-box::after { bottom:-1px;right:-1px;border-left:none;border-top:none; }
+        .modal-title {
+            color: var(--main-green);
+            font-size:18px;
+            text-align:center;
+            letter-spacing:2px;
+            margin-bottom:16px;
+            text-shadow:0 0 8px var(--green-glow);
+        }
+        .modal-text {
+            color: var(--text-main);
+            text-align:center;
+            font-size:14px;
+            line-height:1.7;
+            margin-bottom:24px;
+        }
+        .modal-confirm {
+            width:100%;
+            padding:12px;
+            background:rgba(0,255,177,0.1);
+            border:1px solid var(--main-green);
+            color:var(--main-green);
+            letter-spacing:2px;
+            cursor:pointer;
+            transition:0.25s;
+        }
+        .modal-confirm:hover {
+            background:rgba(0,255,177,0.18);
+            box-shadow:0 0 12px var(--green-glow);
+        }
+        /* 移动端适配：4列变2列 */
+        @media (max-width: 520px) {
+            .qr-wrap {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 400px) {
+            .qr-wrap {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .qr-item { padding: 8px 4px; }
+            .qr-title { font-size: 11px; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .container { padding: 22px 18px; }
+            .title { font-size: 19px; }
+            .result-tag { font-size: 18px; }
+            .logo-wrap img { height: 48px; }
+            .modal-box { padding:24px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 全局弹窗遮罩 -->
+    <div class="modal-mask" id="globalModal">
+        <div class="modal-box">
+            <h3 class="modal-title">检测提示</h3>
+            <p class="modal-text" id="modalMsg"></p>
+            <button class="modal-confirm" onclick="closeModal()">确认检查</button>
+        </div>
+    </div>
+    <!-- 顶部LOGO -->
+    <div class="logo-wrap">
+        <img src="起源电竞logo.png" alt="起源电竞" style="height:250px;">
+    </div>
+    <div class="container">
+        <!-- 开始页 -->
+        <div id="startPage" class="page active">
+            <h2 class="title">起源电竞俱乐部·三角洲属性检测</h2>
+            <p class="desc">20道题测出你的本命单子</p>
+            <div class="input-wrap">
+                <label>请输入你的干员ID / 昵称</label>
+                <input id="playerId" type="text" placeholder="例如：Solo">
+            </div>
+            <div class="notice-block">
+                <p>📋 俱乐部规则：完成本测试的老板下单，享有 <strong>额外500W保底</strong> 权益；未参与测试下单无保底加成。测试结果仅作娱乐消遣，请勿上升。</p>
+            </div>
+            <button class="btn-start" onclick="startTest()" style="width:100%">开始检测</button>
+        </div>
+        <!-- 答题页 -->
+        <div id="qPage1" class="page"></div>
+        <div id="qPage2" class="page"></div>
+        <div id="qPage3" class="page"></div>
+        <div id="qPage4" class="page"></div>
+        <!-- 结果页 -->
+        <div id="resultPage" class="page">
+            <h2 class="title">检测报告 · 已完成</h2>
+            <div class="result-img" id="resImg"></div>
+            <div class="result-id-line" id="resIdLine"></div>
+            <div class="result-tag" id="resTag"></div>
+            <div class="result-dim" id="resDim"></div>
+            <div class="result-text" id="resText"></div>
+            <div class="bonus-tip">
+                <h4>起源俱乐部权益</h4>
+                <p>✅ 该干员已完成人格检测，符合保底合约资格，下单可享受额外增加500W保底。</p>
+            </div>
+            <!-- ===== 四个二维码展位：客服微信、客服QQ、福利群、公众号 ===== -->
+            <div class="qr-wrap">
+                <div class="qr-item">
+                    <div class="qr-title">🤖 客服-xxxx</div>
+                    <img src="qr-wechat.png" alt="客服-xxx">
+                </div>
+                <div class="qr-item">
+                    <div class="qr-title">💬 客服-xxxxxxx</div>
+                    <img src="qr-qq.png" alt="客服-xxxx">
+                </div>
+                <div class="qr-item">
+                    <div class="qr-title">🎁 客服-xxxx</div>
+                    <img src="qr-group.png" alt="客服-xxxxxxx">
+                </div>
+                <div class="qr-item">
+                    <div class="qr-title">📢 公众号</div>
+                    <img src="qr-official.png" alt="公众号二维码">
+                </div>
+            </div>
+            <!-- ===== KOOK频道号 ===== -->
+            <div class="kook-bar">
+                🎧 KOOK频道号：<strong>8888666</strong> ｜ 加入频道解锁专属福利
+            </div>
+            <button class="copy-btn" onclick="copyResult()" style="width:100%;">复制结果文案</button>
+            <button onclick="resetTest()" style="width:100%;margin-top:12px;">重新检测</button>
+        </div>
+    </div>
+    <script>
+        let playerName = "";
+        // Fisher-Yates 洗牌
+        function shuffleArray(arr) {
+            let newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+        // 弹窗控制函数
+        function showModal(msg) {
+            document.getElementById("modalMsg").innerText = msg;
+            document.getElementById("globalModal").classList.add("show");
+        }
+        function closeModal() {
+            document.getElementById("globalModal").classList.remove("show");
+        }
+        // 校验当前页面5道题是否全部完成
+        function checkCurrentPageComplete(startIdx) {
+            let allDone = true;
+            const endIdx = Math.min(startIdx + 5, questions.length);
+            for(let i=startIdx;i<endIdx;i++){
+                if(answers[i] === null) allDone = false;
+            }
+            return allDone;
+        }
+        const questions = [
+            { question: "开局落地，你的第一优先级是？", options: [
+                { text: "往里豪！往里豪！", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先清房排点，确认周围安全", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "找队友集合，抱团行动", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "直奔高价值物资点，先摸再说", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "转角突然遭遇敌人，你第一反应是？", options: [
+                { text: "窝来铜泥丸！", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先退掩体，听脚步判断人数位置", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "喊队友架枪，配合夹击", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "扭头就跑，先保住身上的物资", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "队友倒地，敌人还在架枪，你会？", options: [
+                { text: "直接冲上去补枪救人", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先封烟探点，确认敌人位置再救", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "拼死也要把队友拉起来", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "算了，活着要紧", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "你路过一个已知的高价值刷新点，你会？", options: [
+                { text: "先打懦夫再吃饭", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先绕一圈排点，确认安全再摸", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "喊队友一起过来搜，互相掩护", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "直接钻进去，我是说万一呢？", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "对局中期，你更倾向于？", options: [
+                { text: "到处找人打架，主动推进", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "占住有利位置，收集全场信息", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "跟队友抱团，互相照应推进", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "找没人的角落，专心搜物资", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "听到远处有枪声，你的第一想法？", options: [
+                { text: "怒目狰狞，准备撕咬", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "听声辨位，判断交战双方位置", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "喊队友小心，别被偷了", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "趁他们打架，赶紧去摸物资", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "搜物资点的时候，你的习惯是？", options: [
+                { text: "与我无关", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "一边搜一边排点，每个角落都排，不漏一个点位", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "搜完把多余的药和甲分给队友", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "只盯着红金，再不济蓝紫呢，塞满裤裆再说", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "撤离点开启，路上有一队人拦着，你会？", options: [
+                { text: "直接冲过去硬拼开道", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "绕路找其他撤离点，避战保物资", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "和队友配合打配合，清出撤离路线", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "宁愿绕远路，也不能掉身上的物资", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "发现敌人背身，你会？", options: [
+                { text: "直接开镜秒他", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先观察他有没有队友，再决定动不动手", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "给队友报点，一起夹击", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "等他打完捡完东西再杀，顺便舔他的包", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "队友抢了你盯上的装备，你会？", options: [
+                { text: "无所谓，打架杀人更重要", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "记下来，后面找机会自己再摸一个", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "队友拿了也一样，团队收益最重要", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "心里不爽，想办法让队友分点物资", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "打不过对面，队伍要撤退，你会？", options: [
+                { text: "断后架枪，边打边撤", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先找好撤退路线，给队友报点", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "帮队友挡枪，最后一个走", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "自己先润，保住自己的装备", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "进一个新区域，你首先做的是？", options: [
+                { text: "心里默念焚诀，找敌人位置，主动接战", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "排查所有可能蹲人的角落", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "确认队友位置，保持阵型", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "直奔物资最肥的房间", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "队友提议去打高危区的BOSS，你会？", options: [
+                { text: "干就完事了", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先排人，一步步确认信息，最后再打BOSS", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "队友去我就去，一键跟随", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "去，万一包里/夹层出货了呢", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "身上装备已经很不错了，你会？", options: [
+                { text: "继续找人打架", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "见好就收，观察局势，准备撤离", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "把多余的物资分给装备差的队友", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "还不够，还不够，我还要吃", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "被敌人架住了，你第一反应是？", options: [
+                { text: "找时机反打，不能被压着打", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "听脚步判断对方人数和枪械，找破绽", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "喊队友帮忙架枪反打", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "蹲着不动，找机会跑路", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "你玩游戏的核心乐趣是？", options: [
+                { text: "击杀敌人的爽感", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "掌控全场信息的成就感", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "和队友配合赢下对局的快乐", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "出货囤货的满足感", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "开局队友想去打架，但你正在搜点，你会？", options: [
+                { text: "不吃了，让对面看看谁才是王从天降", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先清完自己这片的信息，再和队友汇合", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "搜完赶紧去找队友，怕队友出事", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "多我一个不多，少我一个不少，但是先塞满裤裆", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "舔包的时候，你优先拿？", options: [
+                { text: "头甲枪胸挂", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "针医疗包甲修", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "先标，给队友报，队友优先吃", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "小孩做选择，大人全部ALL IN", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "对局快结束，撤离时间不多了，你会？", options: [
+                { text: "懒得算包，先13抖枪，万一还有架打呢", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "规划好撤离路线，稳步往撤离点走", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "配合排点，杜绝被阴，确保大家都能走", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "再搜最后一个房间，万一出货了呢", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] },
+            { question: "以下哪种描述最符合你平时的玩法？", options: [
+                { text: "主打一个干架，见人就上", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "主打一个细节，信息拉满", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "主打一个团队，队友优先", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "主打一个暴富，出货至上", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ] }
+        ];
+        const resultMap = {
+            "A高B高C高D高": { code: "PEAK", title: "真正的3号位", img: "https://picsum.photos/id/1011/600/300", desc: "你就是三角洲车队里的真·大腿，能打能搜还能护队友。打架不马枪、搜点不漏物、队友倒地敢救、大金还能稳稳揣兜里。跟着你走的局，基本都是全员百万撤离的爽局，既有操作又有脑子，还讲义气，属于全服都抢着要的顶级队友。" },
+            "A高B高C高D低": { code: "GOAT", title: "魔王护", img: "https://picsum.photos/id/1025/600/300", desc: "你玩三角洲的唯一目的就是干架爽，物资什么的根本不缺。枪法在线、细节拉满，全程追着人打，顺手还能把队友护得明明白白。红装大金对你吸引力远不如爆杀一队来得爽，属于电竞界的活雷锋，打架冲第一个，物资让给队友。" },
+            "A高B高C低D高": { code: "HUST", title: "学生会会长", img: "https://picsum.photos/id/1035/600/300", desc: "叫上朋友选三工程去航天惩罚猛攻哥，点位熟的像回家，技能放的有节奏。游戏最善良之人，总是替其他队伍报仇，主打一个黑吃黑、劫富济自己。" },
+            "A高B高C低D低": { code: "SLAY", title: "猛攻哥", img: "https://picsum.photos/id/1043/600/300", desc: "你活着就是为了对枪，三角洲纯纯的击杀瘾者。排点细节拉满，枪法稳得一批，爆杀完扭头就走，包都懒得舔。在你眼里，大金红装远不如一串击杀数来得有成就感，玩游戏就是要享受正面刚赢的快感，物资？够打就行。" },
+            "A高B低C高D高": { code: "CRZY", title: "嘉豪", img: "https://picsum.photos/id/1052/600/300", desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹 。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。" },
+            "A高B低C高D低": { code: "SAVR", title: "好伙计", img: "https://picsum.photos/id/1062/600/300", desc: "队伍里最奉献的免费保镖，永远冲在第一个挡子弹。和朋友玩从不在意物资，有6套绝不穿5套，不贪物资，队友指哪打哪，救人比谁都积极。在你眼里，团队赢比什么都重要，人头和大红都是次要的，主打一个忠心耿耿，是所有车队都想要的好伙计。" },
+            "A高B低C低D高": { code: "RISK", title: "红发布鲁斯", img: "https://picsum.photos/id/1074/600/300", desc: "电刺钻进大脑，翻滚代替思考。当锚点放下的那一刻我比任何人都想见到你。三角洲鼎鼎有名的布鲁，锚点一放就是冲。见人就打滚，魔王以下我无敌，魔王之上一换一。如果有队友给信息更是如虎添翼，富贵险中求？直接就是富贵文中取。" },
+            "A高B低C低D低": { code: "BRUT", title: "战斗爽", img: "https://picsum.photos/id/1080/600/300", desc: "纯纯的愣头青，进图就找人干架。不探点、不舔包、不救队友，输赢全看当天手感。你玩游戏没有别的目的，就是享受开枪对枪的快感，物资够用就行，队友随缘就行，主打一个生死有命富贵在天，爽到就完事了。" },
+            "A低B高C高D高": { code: "SAFE", title: "哈吉蜂", img: "https://picsum.photos/id/1003/600/300", desc: "三角洲稳赚不赔的代表，零风险百万撤离的代言人。全程不主动惹事，把地图摸得门儿清，带着队友稳稳搜物资，避战能力点满。跟着你玩虽然没那么多击杀爽感，但局局都能肥着撤离，是稳健型玩家的天花板。" },
+            "A低B高C高D低": { code: "EARS", title: "耳机成精了", img: "https://picsum.photos/id/1006/600/300", desc: "全队的“活地图”+“移动雷达”，脚步方位报得比挂还准。不爱主动打架，但排点细节拉满，哪里有人、哪里有坑都给你报得明明白白，顺便还能顺手救队友。物资什么的完全不care，主打一个靠信息carry全队，是车队里的隐形功臣。" },
+            "A低B高C低D高": { code: "MINE", title: "虎头蜂", img: "https://picsum.photos/id/1015/600/300", desc: "三角洲地道活地图，鼠鼠玩家的天花板。哪里有大金往哪钻，能打能搜，不嫌弃小紫小蓝。精通所有老六点位和物资刷新点，全程避战，闷声发大财。一局下来人头没几个，撤离价值却高得离谱，主打一个闷声发大财。" },
+            "A低B高C低D低": { code: "CAMP", title: "慢慢蠕动", img: "https://picsum.photos/id/1019/600/300", desc: "一个角落蹲一整局的老六艺术家，主打一个折磨对手。不爱正面刚枪，就喜欢蹲点等有缘人，信息掌控拉满，敌人走到哪一步都算得清清楚楚。不为钱不为分，就享受阴到人那一下的快乐，是所有猛攻的噩梦。" },
+            "A低B低C高D高": { code: "TAGAL", title: "找个大哥", img: "https://picsum.photos/id/1027/600/300", desc: "全程跟在队友屁股后面的搭车达人，主打一个借力发财。队友打架我摸金，队友开路我喝汤，不主动冲也不主动探，跟着大部队浑水摸鱼。嘴甜会来事，队友也愿意带，一局下来没出多少力，但物资一点没少拿。" },
+            "A低B低C高D低": { code: "HEAL", title: "奶妈来的", img: "https://picsum.photos/id/1038/600/300", desc: "队伍里的专属移动补给站，纯纯的工具人担当。不会打枪不会探点，但救人给药比谁都快，队友缺啥给啥，永远把队友放在第一位。主打一个无私奉献，击杀和物资都不重要，队友能活着撤离就是最大的胜利。" },
+            "A低B低C低D高": { code: "GREED", title: "囤囤鼠", img: "https://picsum.photos/id/1049/600/300", desc: "三角洲终极贪吃天花板，仓库能买下整个航天城，物资坐标门儿清。为了摸一个大红，命都可以不要。制式套就是全装进图，主打一个人为财死。" },
+            "A低B低C低D低": { code: "VIBE", title: "观光客", img: "https://picsum.photos/id/1059/600/300", desc: "纯来三角洲旅游的观光客，主打一个体验生活。不打架、不摸金、不救队友，哪好看去哪，哪新鲜逛哪。对局输赢无所谓，物资多少不关心，主打一个逛gai式游戏，玩的就是一个休闲放松，属于三角洲里的佛系稀有物种。" }
+        };
+        let currentPageIndex = 0;
+        let answers = Array(questions.length).fill(null);
+        function startTest() {
+            const inputVal = document.getElementById("playerId").value.trim();
+            if (!inputVal) { showModal("请输入你的干员ID/昵称"); return; }
+            playerName = inputVal;
+            goPage(1);
+        }
+        function renderPage(pageDomId, startIdx) {
+            const dom = document.getElementById(pageDomId);
+            dom.innerHTML = "";
+            const endIdx = Math.min(startIdx + 5, questions.length);
+            const total = questions.length;
+            const fragment = document.createDocumentFragment();
+            const wrapDiv = document.createElement("div");
+            const progressText = document.createElement("div");
+            progressText.className = "progress-text";
+            progressText.textContent = `题目 ${startIdx+1}-${endIdx} / ${total}`;
+            const progressWrap = document.createElement("div");
+            progressWrap.className = "progress-wrap";
+            const progressBar = document.createElement("div");
+            progressBar.className = "progress-bar";
+            const progressFill = document.createElement("div");
+            progressFill.className = "progress-fill";
+            progressFill.style.width = ((endIdx / total) * 100).toFixed(1) + "%";
+            progressBar.appendChild(progressFill);
+            progressWrap.appendChild(progressText);
+            progressWrap.appendChild(progressBar);
+            wrapDiv.appendChild(progressWrap);
+            for (let i = startIdx; i < endIdx; i++) {
+                const q = questions[i];
+                const shuffled = shuffleArray(q.options);
+                const qDiv = document.createElement("div");
+                qDiv.className = "question";
+                // 已作答添加done高亮类
+                if(answers[i] !== null) qDiv.classList.add("done");
+                const qTitle = document.createElement("div");
+                qTitle.className = "q-title";
+                qTitle.textContent = `${i+1}. ${q.question}`;
+                qDiv.appendChild(qTitle);
+                const optWrap = document.createElement("div");
+                optWrap.className = "options";
+                shuffled.forEach((opt) => {
+                    const origIdx = q.options.indexOf(opt);
+                    const label = document.createElement("label");
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `q_${i}`;
+                    input.value = origIdx;
+                    if (answers[i] === origIdx) input.checked = true;
+                    // 选中时更新答案并给题目整框高亮
+                    input.onchange = () => {
+                        answers[i] = origIdx;
+                        qDiv.classList.add("done");
+                    };
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(opt.text));
+                    optWrap.appendChild(label);
+                });
+                qDiv.appendChild(optWrap);
+                wrapDiv.appendChild(qDiv);
+            }
+            const btnGroup = document.createElement("div");
+            btnGroup.className = "btn-group";
+            if (startIdx > 0) {
+                const btnPrev = document.createElement("button");
+                btnPrev.className = "btn-prev";
+                btnPrev.textContent = "上一页";
+                btnPrev.onclick = () => {
+                    // 切换上一页校验当前页题目
+                    if(!checkCurrentPageComplete(startIdx)){
+                        showModal("本页有未完成的题目，请干员仔细检查！");
+                        return;
+                    }
+                    goPage(currentPageIndex - 1);
+                };
+                btnGroup.appendChild(btnPrev);
+            }
+            if (endIdx >= questions.length) {
+                const btnSubmit = document.createElement("button");
+                btnSubmit.className = "btn-submit";
+                btnSubmit.textContent = "生成检测报告";
+                btnSubmit.onclick = calcResult;
+                btnGroup.appendChild(btnSubmit);
+            } else {
+                const btnNext = document.createElement("button");
+                btnNext.className = "btn-next";
+                btnNext.textContent = "下一页";
+                btnNext.onclick = () => {
+                    // 切换下一页校验当前页题目
+                    if(!checkCurrentPageComplete(startIdx)){
+                        showModal("本页有未完成的题目，请干员仔细检查！");
+                        return;
+                    }
+                    goPage(currentPageIndex + 1);
+                };
+                btnGroup.appendChild(btnNext);
+            }
+            wrapDiv.appendChild(btnGroup);
+            fragment.appendChild(wrapDiv);
+            dom.appendChild(fragment);
+        }
+        function goPage(p) {
+            document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
+            currentPageIndex = p;
+            if (p === 0) {
+                document.getElementById("startPage").classList.add("active");
+                return;
+            } else if (p === 1) {
+                renderPage("qPage1", 0);
+                document.getElementById("qPage1").classList.add("active");
+            } else if (p === 2) {
+                renderPage("qPage2", 5);
+                document.getElementById("qPage2").classList.add("active");
+            } else if (p === 3) {
+                renderPage("qPage3", 10);
+                document.getElementById("qPage3").classList.add("active");
+            } else if (p === 4) {
+                renderPage("qPage4", 15);
+                document.getElementById("qPage4").classList.add("active");
+            }
+        }
+        function calcResult() {
+            const unfinished = answers.some(x => x === null);
+            if (unfinished) {
+                showModal("存在未完成的题目，请干员返回检查全部题目！");
+                return;
+            }
+            let score = { A: 0, B: 0, C: 0, D: 0 };
+            for (let i = 0; i < questions.length; i++) {
+                const opt = questions[i].options[answers[i]];
+                score.A += opt.score.A;
+                score.B += opt.score.B;
+                score.C += opt.score.C;
+                score.D += opt.score.D;
+            }
+            const aLevel = score.A >= 10 ? "高" : "低";
+            const bLevel = score.B >= 10 ? "高" : "低";
+            const cLevel = score.C >= 10 ? "高" : "低";
+            const dLevel = score.D >= 10 ? "高" : "低";
+            const key = `A${aLevel}B${bLevel}C${cLevel}D${dLevel}`;
+            const resItem = resultMap[key];
+            document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
+            document.getElementById("resultPage").classList.add("active");
+            document.getElementById("resImg").innerHTML = `<img src="${resItem.img}" alt="${resItem.title}">`;
+            document.getElementById("resIdLine").innerText = `那么，尊敬的${playerName}干员，您的三角洲成分为：`;
+            document.getElementById("resTag").innerText = `${resItem.code} · ${resItem.title}`;
+            document.getElementById("resDim").textContent = `猛攻A:${score.A} ｜ 信息B:${score.B} ｜ 兜底C:${score.C} ｜ 贪欲D:${score.D}`;
+            document.getElementById("resText").innerHTML = `<p>${resItem.desc}</p>`;
+        }
+        function copyResult() {
+            const tag = document.getElementById("resTag").innerText;
+            const desc = document.getElementById("resText").innerText;
+            const text = `【三角洲玩家人格检测】\n干员：${playerName}\n结果：${tag}\n${desc}\n完成测试下单享500W保底\nKOOK频道：8888666`;
+            navigator.clipboard.writeText(text).then(() => {
+                showModal("结果已复制，请干员发给客服吧！");
+            }).catch(() => {
+                showModal("复制失败，请手动长按复制");
+            });
+        }
+        function resetTest() {
+            answers = Array(questions.length).fill(null);
+            playerName = "";
+            document.getElementById("playerId").value = "";
+            currentPageIndex = 0;
+            goPage(0);
+        }
+    </script>
+</body>
+</html>
