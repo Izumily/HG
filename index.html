@@ -681,7 +681,7 @@
                 <input id="playerId" type="text" placeholder="例如：Solo">
             </div>
             <div class="notice-block">
-                <p>📋 俱乐部规则：完成本测试的老板下单，享有<strong>额外500W保底</strong>权益；未参与测试下单无保底加成。测试结果仅作娱乐消遣，请勿上升个人及俱乐部本身，祝大家在起源玩的开心。</p>
+                <p>📋 俱乐部规则：完成本测试的老板下单，享有<strong>额外300W保底</strong>权益；未参与测试下单无保底加成。测试结果仅作娱乐消遣，请勿上升个人及俱乐部本身，祝大家在起源玩的开心。</p>
             </div>
             <button class="btn-start" onclick="startTest()" style="width:100%">开始检测</button>
         </div>
@@ -707,7 +707,7 @@
             <h2 class="title" style="margin-top:20px;">检测报告 · 已完成</h2>
             <div class="bonus-tip">
                 <h4>起源俱乐部权益</h4>
-                <p>✅ 该干员已完成人格检测，符合保底合约资格，下单可享受额外增加500W保底。</p>
+                <p>✅ 该干员已完成人格检测，符合保底合约资格，下单可享受额外增加300W保底。</p>
             </div>
             <div class="qr-wrap">
                 <div class="qr-item"><div class="qr-title">🤖 客服-鱼鱼</div><img src="qrcode/Fish.jpg" alt="客服-鱼鱼"></div>
@@ -944,11 +944,11 @@
                 desc: "你活着就是为了对枪，三角洲纯纯的击杀瘾者。排点细节拉满，枪法稳得一批，爆杀完扭头就走，包都懒得舔。在你眼里，大金红装远不如一串击杀数来得有成就感，玩游戏就是要享受正面刚赢的快感，物资？够打就行。"
             },
             "A高B低C高D高": {
-                code: "C.R.A.Z.Y.",
-                codeExplain: ["C(razy)", "R(ush)", "Z(eal)", "Y(outh)"],
+                code: "B.R.U.T.",
+                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(Tactics)"],
                 title: "战斗爽",
                 img: "https://picsum.photos/id/1052/600/300",
-                desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。"
+                desc: "纯纯的愣头青，进图就找人干架。不探点、不舔包、不救队友，输赢全看当天手感。你玩游戏没有别的目的，就是享受开枪对枪的快感，物资够用就行，队友随缘就行，主打一个生死有命富贵在天，爽到就完事了。"
             },
             "A高B低C高D低": {
                 code: "S.A.V.R.",
@@ -965,11 +965,11 @@
                 desc: "电刺钻进大脑，翻滚代替思考。当锚点放下的那一刻我比任何人都想见到你。三角洲鼎鼎有名的布鲁斯，锚点一放就是冲。见人就打滚，魔王以下我无敌，魔王之上一换一。如果有队友给信息更是如虎添翼，富贵险中求？直接就是富贵文中取。"
             },
             "A高B低C低D低": {
-                code: "J.H.B.R.",
-                codeExplain: ["J(ia)", "H(ao)", "B(en)", "R(en)"],
-                title: "嘉豪",
-                img: "https://picsum.photos/id/1080/600/300",
-                desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。"
+                code: "J.H.B.H.",
+                codeExplain: ["J(ia)", "H(ao)", "B(en)", "H(ao)"],
+                title: "嘉豪本豪",
+                img: "./pic/jiahao.png",
+                desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peak一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。"
             },
             "A低B高C高D高": {
                 code: "S.A.F.E.",
@@ -1060,7 +1060,8 @@
             "mniscient": "全知", "iding": "等待", "ilent": "无声", "eaper": "收割",
             "crounger": "拾荒", "hancer": "投机", "colyte": "跟班", "ulture": "秃鹫",
             "ealer": "治疗", "mpathetic": "共情", "id": "援助", "ifeline": "生命线",
-            "iser": "守财", "nload": "清空", "ooter": "掠夺", "xcessive": "过度"
+            "iser": "守财", "nload": "清空", "ooter": "掠夺", "xcessive": "过度", "rawl": "混战",
+            "apid": "迅猛", "nrestrained": "不受约束", "actics": "战术", "ao": "豪"
         };
 
         // ============================================================
@@ -1362,7 +1363,7 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             });
 
             const text =
-                `【三角洲玩家人格检测】\n干员：${playerName}\n结果：${tag}\n${dimText}\n${pctStr.trim()}\n${desc}\n完成测试下单享500W保底\nKOOK频道：1119`;
+                `【三角洲玩家人格检测】\n干员：${playerName}\n结果：${tag}\n${dimText}\n${pctStr.trim()}\n${desc}\n完成测试下单享300W保底\nKOOK频道：1119`;
 
             navigator.clipboard.writeText(text).then(() => {
                 showModal("结果已复制，请干员发给客服吧！");
