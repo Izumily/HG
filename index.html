@@ -33,7 +33,6 @@
             position: relative;
             overflow-x: hidden;
         }
-        /* 背景扫描线动效 */
         body::before {
             content: "";
             position: fixed;
@@ -41,12 +40,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                rgba(0, 255, 177, 0.04) 50%,
-                transparent 100%
-            );
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 177, 0.04) 50%, transparent 100%);
             animation: scanLine 8s linear infinite;
             pointer-events: none;
             z-index: 0;
@@ -74,17 +68,8 @@
             padding: 32px 28px;
             position: relative;
             z-index: 1;
-            box-shadow:
-                0 0 20px rgba(0, 255, 177, 0.1),
-                inset 0 0 30px rgba(0, 255, 177, 0.03);
-            clip-path: polygon(
-                12px 0,
-                100% 0,
-                100% calc(100% - 12px),
-                calc(100% - 12px) 100%,
-                0 100%,
-                0 12px
-            );
+            box-shadow: 0 0 20px rgba(0, 255, 177, 0.1), inset 0 0 30px rgba(0, 255, 177, 0.03);
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
         }
         .container::before,
         .container::after {
@@ -95,12 +80,16 @@
             border: 2px solid var(--main-green);
         }
         .container::before {
-            top: -1px; left: -1px;
-            border-right: none; border-bottom: none;
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
         }
         .container::after {
-            bottom: -1px; right: -1px;
-            border-left: none; border-top: none;
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
         }
         .page {
             display: none;
@@ -130,7 +119,9 @@
             line-height: 1.7;
             letter-spacing: 1px;
         }
-        .input-wrap { margin-bottom: 24px; }
+        .input-wrap {
+            margin-bottom: 24px;
+        }
         .input-wrap label {
             display: block;
             margin-bottom: 10px;
@@ -153,19 +144,22 @@
             border-color: var(--main-green);
             box-shadow: 0 0 12px var(--green-glow);
         }
-        .notice-block, .bonus-tip {
+        .notice-block,
+        .bonus-tip {
             background: rgba(0, 255, 177, 0.05);
             padding: 16px;
             border: 1px solid var(--border-dark);
             border-left: 3px solid var(--main-green);
             margin: 20px 0;
         }
-        .notice-block p, .bonus-tip p {
+        .notice-block p,
+        .bonus-tip p {
             color: var(--text-main);
             font-size: 13px;
             line-height: 1.7;
         }
-        .notice-block strong, .bonus-tip strong {
+        .notice-block strong,
+        .bonus-tip strong {
             color: var(--main-green);
             font-weight: 600;
         }
@@ -175,7 +169,9 @@
             font-size: 15px;
             letter-spacing: 1px;
         }
-        .progress-wrap { margin-bottom: 24px; }
+        .progress-wrap {
+            margin-bottom: 24px;
+        }
         .progress-text {
             font-size: 12px;
             color: var(--text-sub);
@@ -200,9 +196,11 @@
         .progress-fill::after {
             content: "";
             position: absolute;
-            top: 0; right: 0;
-            width: 30px; height: 100%;
-            background: linear-gradient(to left, rgba(255,255,255,0.4), transparent);
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.4), transparent);
             animation: progressShine 1.5s infinite;
         }
         @keyframes progressShine {
@@ -217,7 +215,6 @@
             border-radius: 6px;
             transition: all 0.3s ease;
         }
-        /* 已作答题目整框高亮 */
         .question.done {
             background: rgba(0, 255, 177, 0.06);
             box-shadow: 0 0 10px rgba(0, 255, 177, 0.18);
@@ -285,12 +282,16 @@
         button::before {
             content: "";
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,255,177,0.2), transparent);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 177, 0.2), transparent);
             transition: left 0.5s ease;
         }
-        button:hover::before { left: 100%; }
+        button:hover::before {
+            left: 100%;
+        }
         button:hover {
             background: rgba(0, 255, 177, 0.15);
             box-shadow: 0 0 15px var(--green-glow);
@@ -303,7 +304,9 @@
             border-color: var(--main-green);
             color: var(--main-green);
         }
-        .btn-start, .btn-submit, .btn-next {
+        .btn-start,
+        .btn-submit,
+        .btn-next {
             background: rgba(0, 255, 177, 0.1);
         }
         .copy-btn {
@@ -330,7 +333,7 @@
         .result-id-line {
             font-size: 15px;
             text-align: center;
-            margin: 12px 0;
+            margin: 12px 0 8px;
             color: var(--text-main);
             letter-spacing: 1px;
         }
@@ -339,27 +342,144 @@
             font-size: 20px;
             font-weight: 600;
             color: var(--main-green);
-            margin: 10px 0;
+            margin: 10px 0 8px;
             text-shadow: 0 0 12px var(--green-glow);
             letter-spacing: 3px;
         }
         .result-dim {
-            margin: 10px 0 20px;
-            font-size: 12px;
+            margin: 12px 0 16px;
+            font-size: 13px;
             color: var(--text-sub);
             text-align: center;
-            letter-spacing: 2px;
-            padding: 8px;
+            letter-spacing: 1px;
+            padding: 8px 0;
             border-top: 1px dashed var(--border-dark);
             border-bottom: 1px dashed var(--border-dark);
+            line-height: 1.8;
+        }
+        .result-dim span {
+            color: var(--main-green);
+            font-weight: 500;
         }
         .result-text {
             line-height: 1.8;
             color: var(--text-main);
             font-size: 14px;
             text-align: justify;
+            margin-top: 16px;
         }
-        /* ========== 二维码区域 (4个) ========== */
+        /* ===== 滑块卡片 ===== */
+        .slider-card {
+            margin: 16px 0 12px;
+            padding: 18px 16px 12px;
+            border: 1px solid var(--border-dark);
+            background: rgba(0, 255, 177, 0.03);
+            border-radius: 4px;
+        }
+        .slider-card .slider-title {
+            font-size: 14px;
+            color: var(--main-green);
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            text-align: center;
+            border-bottom: 1px dashed var(--border-dark);
+            padding-bottom: 10px;
+            text-shadow: 0 0 8px var(--green-glow);
+        }
+        .slider-item {
+            margin-bottom: 18px;
+        }
+        .slider-item:last-child {
+            margin-bottom: 0;
+        }
+        .slider-item .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .slider-item .slider-label .left {
+            color: var(--text-main);
+        }
+        .slider-item .slider-label .right {
+            color: var(--text-main);
+        }
+        .slider-track {
+            position: relative;
+            height: 10px;
+            background: rgba(0, 255, 177, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-dark);
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+        }
+        .slider-track .fill-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-radius: 6px 0 0 6px;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 12px currentColor;
+        }
+        .slider-track .fill-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            border-radius: 0 6px 6px 0;
+            transition: width 0.6s ease;
+            background: rgba(255,255,255,0.08);
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+        .slider-track .center-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: rgba(0, 255, 177, 0.3);
+            z-index: 2;
+            box-shadow: 0 0 6px var(--green-glow);
+        }
+        .slider-item .slider-pct {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-sub);
+            margin-top: 3px;
+        }
+        .slider-item .slider-pct .pct-left {
+            color: var(--text-main);
+        }
+        .slider-item .slider-pct .pct-right {
+            color: var(--text-sub);
+        }
+        /* 四色赛博霓虹 */
+        .slider-color-a .fill-left { color: #00f5ff; background: #00f5ff; }
+        .slider-color-a .fill-right { background: rgba(0, 245, 255, 0.15); }
+        .slider-color-b .fill-left { color: #ff00ff; background: #ff00ff; }
+        .slider-color-b .fill-right { background: rgba(255, 0, 255, 0.15); }
+        .slider-color-c .fill-left { color: #9d00ff; background: #9d00ff; }
+        .slider-color-c .fill-right { background: rgba(157, 0, 255, 0.15); }
+        .slider-color-d .fill-left { color: #ffaa00; background: #ffaa00; }
+        .slider-color-d .fill-right { background: rgba(255, 170, 0, 0.15); }
+
+        /* ===== 中英释义行 ===== */
+        .code-explain-line {
+            text-align: center;
+            color: var(--main-green);
+            white-space: pre-line;
+            margin: 8px 0 14px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            text-shadow: 0 0 8px rgba(0, 255, 177, 0.55);
+        }
+
+        /* ===== 二维码 ===== */
         .qr-wrap {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -390,21 +510,6 @@
             background: #fff;
             border-radius: 4px;
         }
-        .qr-placeholder {
-            aspect-ratio: 1/1;
-            width: 100%;
-            max-width: 100px;
-            margin: 0 auto;
-            background: #111a16;
-            border: 1px dashed var(--border-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            font-size: 11px;
-            border-radius: 4px;
-        }
-        /* ========== KOOK频道条 ========== */
         .kook-bar {
             margin-top: 16px;
             padding: 14px;
@@ -421,11 +526,12 @@
             margin: 0 4px;
             text-shadow: 0 0 8px var(--green-glow);
         }
-        /* ========== 自定义全局弹窗（居中赛博UI） ========== */
+
+        /* ===== 弹窗 ===== */
         .modal-mask {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 999;
             display: flex;
             align-items: center;
@@ -444,7 +550,7 @@
             background: var(--bg-panel);
             border: 1px solid var(--main-green);
             padding: 30px 24px;
-            clip-path: polygon(10px 0,100% 0,100% calc(100%-10px),calc(100%-10px) 100%,0 100%,0 10px);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
             box-shadow: 0 0 25px var(--green-glow);
             position: relative;
             animation: modalPop 0.28s ease-out;
@@ -453,44 +559,57 @@
             0% { transform: scale(0.9); opacity:0; }
             100% { transform: scale(1); opacity:1; }
         }
-        .modal-box::before,.modal-box::after {
-            content:"";
-            position:absolute;
-            width:16px;height:16px;
-            border:2px solid var(--main-green);
+        .modal-box::before,
+        .modal-box::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--main-green);
         }
-        .modal-box::before { top:-1px;left:-1px;border-right:none;border-bottom:none; }
-        .modal-box::after { bottom:-1px;right:-1px;border-left:none;border-top:none; }
+        .modal-box::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .modal-box::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
         .modal-title {
             color: var(--main-green);
-            font-size:18px;
-            text-align:center;
-            letter-spacing:2px;
-            margin-bottom:16px;
-            text-shadow:0 0 8px var(--green-glow);
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            text-shadow: 0 0 8px var(--green-glow);
         }
         .modal-text {
             color: var(--text-main);
-            text-align:center;
-            font-size:14px;
-            line-height:1.7;
-            margin-bottom:24px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 24px;
         }
         .modal-confirm {
-            width:100%;
-            padding:12px;
-            background:rgba(0,255,177,0.1);
-            border:1px solid var(--main-green);
-            color:var(--main-green);
-            letter-spacing:2px;
-            cursor:pointer;
-            transition:0.25s;
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 255, 177, 0.1);
+            border: 1px solid var(--main-green);
+            color: var(--main-green);
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.25s;
         }
         .modal-confirm:hover {
-            background:rgba(0,255,177,0.18);
-            box-shadow:0 0 12px var(--green-glow);
+            background: rgba(0, 255, 177, 0.18);
+            box-shadow: 0 0 12px var(--green-glow);
         }
-        /* 移动端适配：4列变2列 */
+
+        /* ===== 自适应 ===== */
         @media (max-width: 520px) {
             .qr-wrap {
                 grid-template-columns: repeat(2, 1fr);
@@ -501,21 +620,44 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
             }
-            .qr-item { padding: 8px 4px; }
-            .qr-title { font-size: 11px; }
+            .qr-item {
+                padding: 8px 4px;
+            }
+            .qr-title {
+                font-size: 11px;
+            }
+            .slider-card {
+                padding: 12px 10px;
+            }
         }
         @media (max-width: 480px) {
-            body { padding: 12px; }
-            .container { padding: 22px 18px; }
-            .title { font-size: 19px; }
-            .result-tag { font-size: 18px; }
-            .logo-wrap img { height: 48px; }
-            .modal-box { padding:24px 16px; }
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 22px 18px;
+            }
+            .title {
+                font-size: 19px;
+            }
+            .result-tag {
+                font-size: 18px;
+            }
+            .logo-wrap img {
+                height: 48px;
+            }
+            .modal-box {
+                padding: 24px 16px;
+            }
+            .code-explain-line {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 全局弹窗遮罩 -->
+
+    <!-- 弹窗 -->
     <div class="modal-mask" id="globalModal">
         <div class="modal-box">
             <h3 class="modal-title">检测提示</h3>
@@ -523,10 +665,12 @@
             <button class="modal-confirm" onclick="closeModal()">确认检查</button>
         </div>
     </div>
+
     <!-- 顶部LOGO -->
     <div class="logo-wrap">
-        <img src="起源电竞logo.png" alt="起源电竞" style="height:250px;">
+        <img src="pic/起源电竞logo.png" alt="起源电竞" style="height:250px;">
     </div>
+
     <div class="container">
         <!-- 开始页 -->
         <div id="startPage" class="page active">
@@ -537,325 +681,408 @@
                 <input id="playerId" type="text" placeholder="例如：Solo">
             </div>
             <div class="notice-block">
-                <p>📋 俱乐部规则：完成本测试的老板下单，享有 <strong>额外500W保底</strong> 权益；未参与测试下单无保底加成。测试结果仅作娱乐消遣，请勿上升。</p>
+                <p>📋 俱乐部规则：完成本测试的老板下单，享有<strong>额外500W保底</strong>权益；未参与测试下单无保底加成。测试结果仅作娱乐消遣，请勿上升个人及俱乐部本身，祝大家在起源玩的开心。</p>
             </div>
             <button class="btn-start" onclick="startTest()" style="width:100%">开始检测</button>
         </div>
-        <!-- 答题页 -->
+
+        <!-- 答题页 ×4 -->
         <div id="qPage1" class="page"></div>
         <div id="qPage2" class="page"></div>
         <div id="qPage3" class="page"></div>
         <div id="qPage4" class="page"></div>
+
         <!-- 结果页 -->
         <div id="resultPage" class="page">
-            <h2 class="title">检测报告 · 已完成</h2>
-            <div class="result-img" id="resImg"></div>
             <div class="result-id-line" id="resIdLine"></div>
             <div class="result-tag" id="resTag"></div>
+            <div class="code-explain-line" id="resCodeExplain"></div>
+            <div class="result-img" id="resImg"></div>
             <div class="result-dim" id="resDim"></div>
+            <div class="slider-card" id="sliderCard">
+                <div class="slider-title" id="sliderTitle">干员思维百分比</div>
+                <div id="sliderContainer"></div>
+            </div>
             <div class="result-text" id="resText"></div>
+            <h2 class="title" style="margin-top:20px;">检测报告 · 已完成</h2>
             <div class="bonus-tip">
                 <h4>起源俱乐部权益</h4>
                 <p>✅ 该干员已完成人格检测，符合保底合约资格，下单可享受额外增加500W保底。</p>
             </div>
-            <!-- ===== 四个二维码展位：客服微信、客服QQ、福利群、公众号 ===== -->
             <div class="qr-wrap">
-                <div class="qr-item">
-                    <div class="qr-title">🤖 客服-xxxx</div>
-                    <img src="qr-wechat.png" alt="客服-xxx">
-                </div>
-                <div class="qr-item">
-                    <div class="qr-title">💬 客服-xxxxxxx</div>
-                    <img src="qr-qq.png" alt="客服-xxxx">
-                </div>
-                <div class="qr-item">
-                    <div class="qr-title">🎁 客服-xxxx</div>
-                    <img src="qr-group.png" alt="客服-xxxxxxx">
-                </div>
-                <div class="qr-item">
-                    <div class="qr-title">📢 公众号</div>
-                    <img src="qr-official.png" alt="公众号二维码">
-                </div>
+                <div class="qr-item"><div class="qr-title">🤖 客服-鱼鱼</div><img src="qrcode/Fish.jpg" alt="客服-鱼鱼"></div>
+                <div class="qr-item"><div class="qr-title">💬 客服-柚柚</div><img src="qrcode/Pomelo.jpg" alt="客服-柚柚"></div>
+                <div class="qr-item"><div class="qr-title">🎁 客服-小草莓</div><img src="qrcode/Strawberry.jpg" alt="客服-小草莓"></div>
+                <div class="qr-item"><div class="qr-title">📢 公众号</div><img src="qrcode/public.jpg" alt="公众号"></div>
             </div>
-            <!-- ===== KOOK频道号 ===== -->
             <div class="kook-bar">
-                🎧 KOOK频道号：<strong>8888666</strong> ｜ 加入频道解锁专属福利
+                🎧 KOOK频道号：<strong>1116</strong>｜ 加入频道解锁专属福利
             </div>
             <button class="copy-btn" onclick="copyResult()" style="width:100%;">复制结果文案</button>
             <button onclick="resetTest()" style="width:100%;margin-top:12px;">重新检测</button>
         </div>
     </div>
+
     <script>
-        let playerName = "";
-        // Fisher-Yates 洗牌
+        // ============================================================
+        //  工具函数
+        // ============================================================
         function shuffleArray(arr) {
-            let newArr = [...arr];
-            for (let i = newArr.length - 1; i > 0; i--) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+                [a[i], a[j]] = [a[j], a[i]];
             }
-            return newArr;
+            return a;
         }
-        // 弹窗控制函数
+
         function showModal(msg) {
             document.getElementById("modalMsg").innerText = msg;
             document.getElementById("globalModal").classList.add("show");
         }
+
         function closeModal() {
             document.getElementById("globalModal").classList.remove("show");
         }
-        // 校验当前页面5道题是否全部完成
-        function checkCurrentPageComplete(startIdx) {
-            let allDone = true;
-            const endIdx = Math.min(startIdx + 5, questions.length);
-            for(let i=startIdx;i<endIdx;i++){
-                if(answers[i] === null) allDone = false;
-            }
-            return allDone;
-        }
-        const questions = [
-            { question: "开局落地，你的第一优先级是？", options: [
-                { text: "往里豪！往里豪！", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先清房排点，确认周围安全", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "找队友集合，抱团行动", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "直奔高价值物资点，先摸再说", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "转角突然遭遇敌人，你第一反应是？", options: [
-                { text: "窝来铜泥丸！", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先退掩体，听脚步判断人数位置", score: { A: 0, B: 1, C: 0, D: 0 } },
+
+        // ============================================================
+        //  题目数据 (20题)
+        // ============================================================
+        const questions = [{
+            question: "开局落地，你的第一优先级是？",
+            options: [
+                { text: "脱头甲提速，你们的王降临了！", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "观察局势，防止公式化闪击", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "下飞机前就已经思考好路线，指挥队友一起行动", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "嘿嘿饭饭", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "转角突然遭遇敌人，你第一反应是？",
+            options: [
+                { text: "窝来铜泥丸（一阵激昂的鼓点音乐响起）", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "道具压制，抢夺枪位", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "喊队友架枪，配合夹击", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "扭头就跑，先保住身上的物资", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "队友倒地，敌人还在架枪，你会？", options: [
-                { text: "直接冲上去补枪救人", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先封烟探点，确认敌人位置再救", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "拼死也要把队友拉起来", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "算了，活着要紧", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "你路过一个已知的高价值刷新点，你会？", options: [
-                { text: "先打懦夫再吃饭", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "尖叫", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "队友倒地，敌人还在架枪，你会？",
+            options: [
+                { text: "二打三？优势在我！", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "给道具，尝试背人，同时安抚队友", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "安抚队友，准备录屏", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "优雅地整理遗容遗表", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "你路过一个已知的高价值刷新点，你会？",
+            options: [
+                { text: "跳拉一下空气，放生一些金弹", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "先绕一圈排点，确认安全再摸", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "喊队友一起过来搜，互相掩护", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "让队友先摸，自己架枪，保持一级战备警戒", score: { A: 0, B: 0, C: 1, D: 0 } },
                 { text: "直接钻进去，我是说万一呢？", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "对局中期，你更倾向于？", options: [
+            ]
+        }, {
+            question: "对局中期，你更倾向于？",
+            options: [
                 { text: "到处找人打架，主动推进", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "占住有利位置，收集全场信息", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "跟队友抱团，互相照应推进", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "找没人的角落，专心搜物资", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "听到远处有枪声，你的第一想法？", options: [
+                { text: "还在刷抖音", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "听到远处有枪声，你的第一想法？",
+            options: [
                 { text: "怒目狰狞，准备撕咬", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "听声辨位，判断交战双方位置", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "喊队友小心，别被偷了", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "趁他们打架，赶紧去摸物资", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "搜物资点的时候，你的习惯是？", options: [
-                { text: "与我无关", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "判断全场人员位置，决定是否参与劝架", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "打了他们就不能打我了喔，我得吃饭", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "搜物资点的时候，你的习惯是？",
+            options: [
+                { text: "搞笑，清图了不都是我的了吗？", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "一边搜一边排点，每个角落都排，不漏一个点位", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "搜完把多余的药和甲分给队友", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "检查备甲备头甲修针剂和各类药物", score: { A: 0, B: 0, C: 1, D: 0 } },
                 { text: "只盯着红金，再不济蓝紫呢，塞满裤裆再说", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "撤离点开启，路上有一队人拦着，你会？", options: [
-                { text: "直接冲过去硬拼开道", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "绕路找其他撤离点，避战保物资", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "和队友配合打配合，清出撤离路线", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "宁愿绕远路，也不能掉身上的物资", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "发现敌人背身，你会？", options: [
-                { text: "直接开镜秒他", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先观察他有没有队友，再决定动不动手", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "给队友报点，一起夹击", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "等他打完捡完东西再杀，顺便舔他的包", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "队友抢了你盯上的装备，你会？", options: [
-                { text: "无所谓，打架杀人更重要", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "记下来，后面找机会自己再摸一个", score: { A: 0, B: 1, C: 0, D: 0 } },
+            ]
+        }, {
+            question: "撤离点开启，路上有一队人拦着，你会？",
+            options: [
+                { text: "我避你锋芒？", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "判断敌人装备及位置", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "思考是否能打，如果不能，产出计划B", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "你我今日本无缘，何必相见，小生此生就退下了", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "发现敌人背身，你会？",
+            options: [
+                { text: "请他吃油条", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "瞄准敌方头线，观察敌人队友位置", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "思考战术，指挥队友，顺手摁住嘉豪的喷气", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "这就是我逃跑的好时机啊！", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "队友抢了你盯上的装备，你会？",
+            options: [
+                { text: "吃吧美眉，阿哥仓库多得是（叼玫瑰花）（喷气）（13切枪）（帅气の离开）", score: { A: 1, B: 0, C: 0,
+                        D: 0 } },
+                { text: "啧（咂舌）", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "队友拿了也一样，团队收益最重要", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "心里不爽，想办法让队友分点物资", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "打不过对面，队伍要撤退，你会？", options: [
-                { text: "断后架枪，边打边撤", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "队友抢不过我的", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "打不过对面，队伍要撤退，你会？",
+            options: [
+                { text: "挂", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "先找好撤退路线，给队友报点", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "帮队友挡枪，最后一个走", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "自己先润，保住自己的装备", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "进一个新区域，你首先做的是？", options: [
-                { text: "心里默念焚诀，找敌人位置，主动接战", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "排查所有可能蹲人的角落", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "确认队友位置，保持阵型", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "直奔物资最肥的房间", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "队友提议去打高危区的BOSS，你会？", options: [
-                { text: "干就完事了", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "在一个能架到对面的位置，掩护队友后撤，自己最后一个走", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "跑路了兄弟跑路了", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "进一个新区域，你首先做的是？",
+            options: [
+                { text: "吞噬一些针剂，轮转一些技能CD", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "排点", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "原地听脚步，同时架来时路，观察是否有人尾随", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "饭来", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "队友提议去打BOSS，你会？",
+            options: [
+                { text: "懒得去", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "先排人，一步步确认信息，最后再打BOSS", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "队友去我就去，一键跟随", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "去，万一包里/夹层出货了呢", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "身上装备已经很不错了，你会？", options: [
-                { text: "继续找人打架", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "爽朗地向兄弟展示刚学的无伤打BOSS的技巧", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "我来了非洲之心/海洋之泪", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "身上装备已经很不错了，你会？",
+            options: [
+                { text: "不可能，我的包里只有备头备甲", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "见好就收，观察局势，准备撤离", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "把多余的物资分给装备差的队友", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "还不够，还不够，我还要吃", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "被敌人架住了，你第一反应是？", options: [
-                { text: "找时机反打，不能被压着打", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "听脚步判断对方人数和枪械，找破绽", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "喊队友帮忙架枪反打", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "蹲着不动，找机会跑路", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "你玩游戏的核心乐趣是？", options: [
+                { text: "把多余的物资分给钱少的队友", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "装备和物资有什么关系？塞满背包再说", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "被敌人架住了，你第一反应是？",
+            options: [
+                { text: "等我大招好你就完蛋了", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "给道具，压位置，及时报点", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "搜集场上信息，制定计划", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "蹲着不动，因为神说过电子竞技没有静态视力", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "你玩游戏的核心乐趣是？",
+            options: [
                 { text: "击杀敌人的爽感", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "掌控全场信息的成就感", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "和队友配合赢下对局的快乐", score: { A: 0, B: 0, C: 1, D: 0 } },
                 { text: "出货囤货的满足感", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "开局队友想去打架，但你正在搜点，你会？", options: [
-                { text: "不吃了，让对面看看谁才是王从天降", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先清完自己这片的信息，再和队友汇合", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "搜完赶紧去找队友，怕队友出事", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "多我一个不多，少我一个不少，但是先塞满裤裆", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "舔包的时候，你优先拿？", options: [
-                { text: "头甲枪胸挂", score: { A: 1, B: 0, C: 0, D: 0 } },
+            ]
+        }, {
+            question: "开局队友想去打架，但你正在吃饭，你会？",
+            options: [
+                { text: "来了宝♂贝♂", score: { A: 1, B: 0, C: 0, D: 0 } },
+                { text: "先排完自己这片的信息，再和队友汇合", score: { A: 0, B: 1, C: 0, D: 0 } },
+                { text: "OK啊我收到", score: { A: 0, B: 0, C: 1, D: 0 } },
+                { text: "兄弟，我快破产了", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "舔包的时候，你优先拿？",
+            options: [
+                { text: "备头备甲", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "针医疗包甲修", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "先标，给队友报，队友优先吃", score: { A: 0, B: 0, C: 1, D: 0 } },
                 { text: "小孩做选择，大人全部ALL IN", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "对局快结束，撤离时间不多了，你会？", options: [
-                { text: "懒得算包，先13抖枪，万一还有架打呢", score: { A: 1, B: 0, C: 0, D: 0 } },
+            ]
+        }, {
+            question: "对局快结束，撤离时间不多了，你会？",
+            options: [
+                { text: "懒得算包，31抖枪，展示赤枭", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "规划好撤离路线，稳步往撤离点走", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "配合排点，杜绝被阴，确保大家都能走", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "再搜最后一个房间，万一出货了呢", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] },
-            { question: "以下哪种描述最符合你平时的玩法？", options: [
+                { text: "再让我……吃一个……容器……（嗝）", score: { A: 0, B: 0, C: 0, D: 1 } }
+            ]
+        }, {
+            question: "以下哪种描述最符合你平时的玩法？",
+            options: [
                 { text: "主打一个干架，见人就上", score: { A: 1, B: 0, C: 0, D: 0 } },
                 { text: "主打一个细节，信息拉满", score: { A: 0, B: 1, C: 0, D: 0 } },
                 { text: "主打一个团队，队友优先", score: { A: 0, B: 0, C: 1, D: 0 } },
                 { text: "主打一个暴富，出货至上", score: { A: 0, B: 0, C: 0, D: 1 } }
-            ] }
-        ];
+            ]
+        }];
+
+        // ============================================================
+        //  结果映射 (16人格) - 已根据最新片段更新
+        // ============================================================
         const resultMap = {
-            "A高B高C高D高": { code: "PEAK", title: "真正的3号位", img: "https://picsum.photos/id/1011/600/300", desc: "你就是三角洲车队里的真·大腿，能打能搜还能护队友。打架不马枪、搜点不漏物、队友倒地敢救、大金还能稳稳揣兜里。跟着你走的局，基本都是全员百万撤离的爽局，既有操作又有脑子，还讲义气，属于全服都抢着要的顶级队友。" },
-            "A高B高C高D低": { code: "GOAT", title: "魔王护", img: "https://picsum.photos/id/1025/600/300", desc: "你玩三角洲的唯一目的就是干架爽，物资什么的根本不缺。枪法在线、细节拉满，全程追着人打，顺手还能把队友护得明明白白。红装大金对你吸引力远不如爆杀一队来得爽，属于电竞界的活雷锋，打架冲第一个，物资让给队友。" },
-            "A高B高C低D高": { code: "HUST", title: "学生会会长", img: "https://picsum.photos/id/1035/600/300", desc: "叫上朋友选三工程去航天惩罚猛攻哥，点位熟的像回家，技能放的有节奏。游戏最善良之人，总是替其他队伍报仇，主打一个黑吃黑、劫富济自己。" },
-            "A高B高C低D低": { code: "SLAY", title: "猛攻哥", img: "https://picsum.photos/id/1043/600/300", desc: "你活着就是为了对枪，三角洲纯纯的击杀瘾者。排点细节拉满，枪法稳得一批，爆杀完扭头就走，包都懒得舔。在你眼里，大金红装远不如一串击杀数来得有成就感，玩游戏就是要享受正面刚赢的快感，物资？够打就行。" },
-            "A高B低C高D高": { code: "CRZY", title: "嘉豪", img: "https://picsum.photos/id/1052/600/300", desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹 。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。" },
-            "A高B低C高D低": { code: "SAVR", title: "好伙计", img: "https://picsum.photos/id/1062/600/300", desc: "队伍里最奉献的免费保镖，永远冲在第一个挡子弹。和朋友玩从不在意物资，有6套绝不穿5套，不贪物资，队友指哪打哪，救人比谁都积极。在你眼里，团队赢比什么都重要，人头和大红都是次要的，主打一个忠心耿耿，是所有车队都想要的好伙计。" },
-            "A高B低C低D高": { code: "RISK", title: "红发布鲁斯", img: "https://picsum.photos/id/1074/600/300", desc: "电刺钻进大脑，翻滚代替思考。当锚点放下的那一刻我比任何人都想见到你。三角洲鼎鼎有名的布鲁，锚点一放就是冲。见人就打滚，魔王以下我无敌，魔王之上一换一。如果有队友给信息更是如虎添翼，富贵险中求？直接就是富贵文中取。" },
-            "A高B低C低D低": { code: "BRUT", title: "战斗爽", img: "https://picsum.photos/id/1080/600/300", desc: "纯纯的愣头青，进图就找人干架。不探点、不舔包、不救队友，输赢全看当天手感。你玩游戏没有别的目的，就是享受开枪对枪的快感，物资够用就行，队友随缘就行，主打一个生死有命富贵在天，爽到就完事了。" },
-            "A低B高C高D高": { code: "SAFE", title: "哈吉蜂", img: "https://picsum.photos/id/1003/600/300", desc: "三角洲稳赚不赔的代表，零风险百万撤离的代言人。全程不主动惹事，把地图摸得门儿清，带着队友稳稳搜物资，避战能力点满。跟着你玩虽然没那么多击杀爽感，但局局都能肥着撤离，是稳健型玩家的天花板。" },
-            "A低B高C高D低": { code: "EARS", title: "耳机成精了", img: "https://picsum.photos/id/1006/600/300", desc: "全队的“活地图”+“移动雷达”，脚步方位报得比挂还准。不爱主动打架，但排点细节拉满，哪里有人、哪里有坑都给你报得明明白白，顺便还能顺手救队友。物资什么的完全不care，主打一个靠信息carry全队，是车队里的隐形功臣。" },
-            "A低B高C低D高": { code: "MINE", title: "虎头蜂", img: "https://picsum.photos/id/1015/600/300", desc: "三角洲地道活地图，鼠鼠玩家的天花板。哪里有大金往哪钻，能打能搜，不嫌弃小紫小蓝。精通所有老六点位和物资刷新点，全程避战，闷声发大财。一局下来人头没几个，撤离价值却高得离谱，主打一个闷声发大财。" },
-            "A低B高C低D低": { code: "CAMP", title: "慢慢蠕动", img: "https://picsum.photos/id/1019/600/300", desc: "一个角落蹲一整局的老六艺术家，主打一个折磨对手。不爱正面刚枪，就喜欢蹲点等有缘人，信息掌控拉满，敌人走到哪一步都算得清清楚楚。不为钱不为分，就享受阴到人那一下的快乐，是所有猛攻的噩梦。" },
-            "A低B低C高D高": { code: "TAGAL", title: "找个大哥", img: "https://picsum.photos/id/1027/600/300", desc: "全程跟在队友屁股后面的搭车达人，主打一个借力发财。队友打架我摸金，队友开路我喝汤，不主动冲也不主动探，跟着大部队浑水摸鱼。嘴甜会来事，队友也愿意带，一局下来没出多少力，但物资一点没少拿。" },
-            "A低B低C高D低": { code: "HEAL", title: "奶妈来的", img: "https://picsum.photos/id/1038/600/300", desc: "队伍里的专属移动补给站，纯纯的工具人担当。不会打枪不会探点，但救人给药比谁都快，队友缺啥给啥，永远把队友放在第一位。主打一个无私奉献，击杀和物资都不重要，队友能活着撤离就是最大的胜利。" },
-            "A低B低C低D高": { code: "GREED", title: "囤囤鼠", img: "https://picsum.photos/id/1049/600/300", desc: "三角洲终极贪吃天花板，仓库能买下整个航天城，物资坐标门儿清。为了摸一个大红，命都可以不要。制式套就是全装进图，主打一个人为财死。" },
-            "A低B低C低D低": { code: "VIBE", title: "观光客", img: "https://picsum.photos/id/1059/600/300", desc: "纯来三角洲旅游的观光客，主打一个体验生活。不打架、不摸金、不救队友，哪好看去哪，哪新鲜逛哪。对局输赢无所谓，物资多少不关心，主打一个逛gai式游戏，玩的就是一个休闲放松，属于三角洲里的佛系稀有物种。" }
+            "A高B高C高D高": {
+                code: "D.A.S.H.",
+                codeExplain: ["D(ominant)", "A(dept)", "S(harp)", "H(ardcore)"],
+                title: "大手子",
+                img: "https://picsum.photos/id/1011/600/300",
+                desc: "你就是三角洲车队里的真·大腿，能打能搜还能护队友。打架不马枪、搜点不漏物、队友倒地敢救、大金还能稳稳揣兜里。跟着你走的局，基本都是全员百万撤离的爽局，既有操作又有脑子，还讲义气，属于全服都抢着要的顶级队友。"
+            },
+            "A高B高C高D低": {
+                code: "G.O.A.T.",
+                codeExplain: ["G(uardian)", "O(verwhelming)", "A(pex)", "T(errifying)"],
+                title: "魔王护",
+                img: "https://picsum.photos/id/1025/600/300",
+                desc: "你玩三角洲的唯一目的就是干架爽，物资什么的根本不缺。枪法在线、细节拉满，全程追着人打，顺手还能把队友护得明明白白。红装大金对你吸引力远不如爆杀一队来得爽，属于电竞界的活雷锋，打架冲第一个，物资让给队友。"
+            },
+            "A高B高C低D高": {
+                code: "H.U.S.T.",
+                codeExplain: ["H(unt)", "U(nite)", "S(teal)", "T(reasure)"],
+                title: "学生会会长",
+                img: "https://picsum.photos/id/1035/600/300",
+                desc: "叫上朋友选三工程去航天惩罚猛攻哥，点位熟的像回家，技能放的有节奏。游戏最善良之人，总是替其他队伍报仇，主打一个黑吃黑、劫富济自己。"
+            },
+            "A高B高C低D低": {
+                code: "S.L.A.Y.",
+                codeExplain: ["S(avage)", "L(eathal)", "A(nnihilator)", "Y(ielding)"],
+                title: "猛攻哥",
+                img: "https://picsum.photos/id/1043/600",
+                desc: "你活着就是为了对枪，三角洲纯纯的击杀瘾者。排点细节拉满，枪法稳得一批，爆杀完扭头就走，包都懒得舔。在你眼里，大金红装远不如一串击杀数来得有成就感，玩游戏就是要享受正面刚赢的快感，物资？够打就行。"
+            },
+            "A高B低C高D高": {
+                code: "C.R.A.Z.Y.",
+                codeExplain: ["C(razy)", "R(ush)", "Z(eal)", "Y(outh)"],
+                title: "战斗爽",
+                img: "https://picsum.photos/id/1052/600/300",
+                desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。"
+            },
+            "A高B低C高D低": {
+                code: "S.A.V.R.",
+                codeExplain: ["S(acrifice)", "A(id)", "V(ow)", "R(eliable)"],
+                title: "好伙计",
+                img: "https://picsum.photos/id/1062/600/300",
+                desc: "队伍里最奉献的免费保镖，永远冲在第一个挡子弹。和朋友玩从不在意物资，有6套绝不穿5套，不贪物资，队友指哪打哪，救人比谁都积极。在你眼里，团队赢比什么都重要，人头和大红都是次要的，主打一个忠心耿耿，是所有车队都想要的好伙计。"
+            },
+            "A高B低C低D高": {
+                code: "R.U.S.H.",
+                codeExplain: ["R(uthless)", "U(nstoppable)", "S(avage)", "H(unter)"],
+                title: "红发布鲁斯",
+                img: "https://picsum.photos/id/1074/600/300",
+                desc: "电刺钻进大脑，翻滚代替思考。当锚点放下的那一刻我比任何人都想见到你。三角洲鼎鼎有名的布鲁斯，锚点一放就是冲。见人就打滚，魔王以下我无敌，魔王之上一换一。如果有队友给信息更是如虎添翼，富贵险中求？直接就是富贵文中取。"
+            },
+            "A高B低C低D低": {
+                code: "J.H.B.R.",
+                codeExplain: ["J(ia)", "H(ao)", "B(en)", "R(en)"],
+                title: "嘉豪",
+                img: "https://picsum.photos/id/1080/600/300",
+                desc: "开局看扁所有人，抖动一些枪械，吞噬一些针剂，peek一些空气，切换一些倍率，殴打一些绿裤，放生一些金弹。你已经是嘉豪本豪了，所有的嘉豪只是对你拙略的模仿罢了。"
+            },
+            "A低B高C高D高": {
+                code: "S.A.F.E.",
+                codeExplain: ["S(ecure)", "A(ware)", "F(leet)", "E(scape)"],
+                title: "哈吉蜂",
+                img: "https://picsum.photos/id/1003/600/300",
+                desc: "三角洲稳赚不赔的代表，零风险百万撤离的代言人。全程不主动惹事，把地图摸得门儿清，带着队友稳稳搜物资，避战能力点满。跟着你玩虽然没那么多击杀爽感，但局局都能肥着撤离，是稳健型玩家的天花板。"
+            },
+            "A低B高C高D低": {
+                code: "E.C.H.O.",
+                codeExplain: ["E(agle-eyed)", "C(oordinator)", "H(elper)", "O(verseer)"],
+                title: "回声",
+                img: "https://picsum.photos/id/1006/600/300",
+                desc: "全队的“活地图”+“移动雷达”，脚步方位报得比挂还准。不爱主动打架，但排点细节拉满，哪里有人、哪里有坑都给你报得明明白白，顺便还能顺手救队友。物资什么的完全不care，主打一个靠信息carry全队，是车队里的隐形功臣。"
+            },
+            "A低B高C低D高": {
+                code: "S.T.N.G.",
+                codeExplain: ["S(wift)", "T(actical)", "N(oxious)", "G(host)"],
+                title: "虎头蜂",
+                img: "https://picsum.photos/id/1015/600/300",
+                desc: "三角洲地道活地图，鼠鼠玩家的天花板。哪里有大金往哪钻，能打能搜，不嫌弃小紫小蓝。精通所有老六点位和物资刷新点，全程避战，闷声发大财。一局下来人头没几个，撤离价值却高得离谱，主打一个闷声发大财。"
+            },
+            "A低B高C低D低": {
+                code: "O.B.S.R.",
+                codeExplain: ["O(mniscient)", "B(iding)", "S(ilent)", "R(eaper)"],
+                title: "阴着你咯",
+                img: "https://picsum.photos/id/1019/600/300",
+                desc: "一个角落蹲一整局的老六艺术家，主打一个折磨对手。不爱正面刚枪，就喜欢蹲点等有缘人，信息掌控拉满，敌人走到哪一步都算得清清楚楚。不为钱不为分，就享受阴到人那一下的快乐，是所有猛攻的噩梦。"
+            },
+            "A低B低C高D高": {
+                code: "S.C.A.V.",
+                codeExplain: ["S(crounger)", "C(hancer)", "A(colyte)", "V(ulture)"],
+                title: "找个大哥",
+                img: "https://picsum.photos/id/1027/600/300",
+                desc: "全程跟在队友屁股后面的搭车达人，主打一个借力发财。队友打架我摸金，队友开路我喝汤，不主动冲也不主动探，跟着大部队浑水摸鱼。嘴甜会来事，队友也愿意带，一局下来没出多少力，但物资一点没少拿。"
+            },
+            "A低B低C高D低": {
+                code: "H.E.A.L.",
+                codeExplain: ["H(ealer)", "E(mpathetic)", "A(id)", "L(ifeline)"],
+                title: "奶妈来的",
+                img: "https://picsum.photos/id/1038/600/300",
+                desc: "队伍里的专属移动补给站，纯纯的工具人担当。不会打枪不会探点，但救人给药比谁都快，队友缺啥给啥，永远把队友放在第一位。主打一个无私奉献，击杀和物资都不重要，队友能活着撤离就是最大的胜利。"
+            },
+            "A低B低C低D高": {
+                code: "M.U.L.E.",
+                codeExplain: ["M(iser)", "U(nload)", "L(ooter)", "E(xcessive)"],
+                title: "囤囤鼠",
+                img: "https://picsum.photos/id/1049/600/300",
+                desc: "三角洲终极贪吃天花板，仓库能买下整个航天城，物资坐标门儿清。为了摸一个大红，命都可以不要。制式套就是全装进图，主打一个人为财死。"
+            },
+            "A低B低C低D低": {
+                code: "V.I.B.E.",
+                codeExplain: ["V(isit)", "I(dle)", "B(reak)", "E(asily)"],
+                title: "观光客",
+                img: "https://picsum.photos/id/1059/600/300",
+                desc: "纯来三角洲旅游的观光客，主打一个体验生活。不打架、不摸金、不救队友，哪好看去哪，哪新鲜逛哪。对局输赢无所谓，物资多少不关心，主打一个逛gai式游戏，玩的就是一个休闲放松，属于三角洲里的佛系稀有物种。"
+            }
         };
+
+        // ============================================================
+        //  中文映射表 (保持原有，新单词可能无映射，但不影响显示)
+        // ============================================================
+        const wordCnMap = {
+            "ia": "嘉", "ao": "豪", "en": "本", "ren": "人",
+            "un": "无拘", "ite": "夺取", "ll": "全部", "tack": "进攻",
+            "asure": "宝藏", "rike": "打击", "tal": "致命", "ack": "进攻",
+            "ield": "收割", "azy": "狂热", "ush": "冲锋", "est": "兴致",
+            "outh": "少年", "acrifice": "牺牲", "id": "援助", "ow": "誓言",
+            "eliable": "可靠", "isk": "冒险", "vade": "突袭", "torm": "冲击",
+            "een": "敏锐", "rawl": "混战", "apid": "迅猛", "nrestrained": "不羁",
+            "actics": "战术", "ecure": "稳妥", "ware": "洞察", "leet": "撤离",
+            "cape": "脱身", "cho": "回响", "udio": "听觉", "adar": "雷达",
+            "ense": "感知", "oney": "财富", "ncome": "收益", "nest": "囤积",
+            "tract": "提取", "onceal": "潜伏", "mbush": "伏击", "ask": "伪装",
+            "atience": "耐心", "rail": "跟随", "ssist": "辅助", "ain": "获利",
+            "lly": "队友", "eal": "治疗", "ndure": "坚守", "oyal": "忠诚",
+            "lutton": "贪婪", "ich": "丰厚", "ndless": "无尽", "eposit": "储藏",
+            "isit": "到访", "dle": "闲逛", "reak": "脱身", "asily": "随性",
+            "razy": "狂热", "ver": "超越", "trike": "打击", "ttack": "突袭",
+            "teal": "窃取", "reasure": "宝藏", "nvest": "投资", "torm": "风暴",
+            "ominant": "统治", "dept": "娴熟", "harp": "敏锐", "ardcore": "硬核",
+            "uardian": "守护", "verwhelming": "压倒", "pex": "顶点", "errifying": "恐惧",
+            "unt": "狩猎", "nite": "联合", "teal": "窃取", "reasure": "宝藏",
+            "avage": "凶残", "eathal": "致命", "nnihilator": "歼灭", "ielding": "不让",
+            "uthless": "冷酷", "nstoppable": "不可挡", "unter": "猎手",
+            "agle-eyed": "鹰眼", "oordinator": "协调", "elper": "帮手", "verseer": "俯瞰",
+            "wift": "迅捷", "actical": "战术", "oxious": "有毒", "host": "鬼魅",
+            "mniscient": "全知", "iding": "等待", "ilent": "无声", "eaper": "收割",
+            "crounger": "拾荒", "hancer": "投机", "colyte": "跟班", "ulture": "秃鹫",
+            "ealer": "治疗", "mpathetic": "共情", "id": "援助", "ifeline": "生命线",
+            "iser": "守财", "nload": "清空", "ooter": "掠夺", "xcessive": "过度"
+        };
+
+        // ============================================================
+        //  状态变量
+        // ============================================================
+        let playerName = "";
         let currentPageIndex = 0;
         let answers = Array(questions.length).fill(null);
+
+        // ============================================================
+        //  核心函数
+        // ============================================================
+
         function startTest() {
             const inputVal = document.getElementById("playerId").value.trim();
             if (!inputVal) { showModal("请输入你的干员ID/昵称"); return; }
             playerName = inputVal;
             goPage(1);
         }
-        function renderPage(pageDomId, startIdx) {
-            const dom = document.getElementById(pageDomId);
-            dom.innerHTML = "";
-            const endIdx = Math.min(startIdx + 5, questions.length);
-            const total = questions.length;
-            const fragment = document.createDocumentFragment();
-            const wrapDiv = document.createElement("div");
-            const progressText = document.createElement("div");
-            progressText.className = "progress-text";
-            progressText.textContent = `题目 ${startIdx+1}-${endIdx} / ${total}`;
-            const progressWrap = document.createElement("div");
-            progressWrap.className = "progress-wrap";
-            const progressBar = document.createElement("div");
-            progressBar.className = "progress-bar";
-            const progressFill = document.createElement("div");
-            progressFill.className = "progress-fill";
-            progressFill.style.width = ((endIdx / total) * 100).toFixed(1) + "%";
-            progressBar.appendChild(progressFill);
-            progressWrap.appendChild(progressText);
-            progressWrap.appendChild(progressBar);
-            wrapDiv.appendChild(progressWrap);
-            for (let i = startIdx; i < endIdx; i++) {
-                const q = questions[i];
-                const shuffled = shuffleArray(q.options);
-                const qDiv = document.createElement("div");
-                qDiv.className = "question";
-                // 已作答添加done高亮类
-                if(answers[i] !== null) qDiv.classList.add("done");
-                const qTitle = document.createElement("div");
-                qTitle.className = "q-title";
-                qTitle.textContent = `${i+1}. ${q.question}`;
-                qDiv.appendChild(qTitle);
-                const optWrap = document.createElement("div");
-                optWrap.className = "options";
-                shuffled.forEach((opt) => {
-                    const origIdx = q.options.indexOf(opt);
-                    const label = document.createElement("label");
-                    const input = document.createElement("input");
-                    input.type = "radio";
-                    input.name = `q_${i}`;
-                    input.value = origIdx;
-                    if (answers[i] === origIdx) input.checked = true;
-                    // 选中时更新答案并给题目整框高亮
-                    input.onchange = () => {
-                        answers[i] = origIdx;
-                        qDiv.classList.add("done");
-                    };
-                    label.appendChild(input);
-                    label.appendChild(document.createTextNode(opt.text));
-                    optWrap.appendChild(label);
-                });
-                qDiv.appendChild(optWrap);
-                wrapDiv.appendChild(qDiv);
-            }
-            const btnGroup = document.createElement("div");
-            btnGroup.className = "btn-group";
-            if (startIdx > 0) {
-                const btnPrev = document.createElement("button");
-                btnPrev.className = "btn-prev";
-                btnPrev.textContent = "上一页";
-                btnPrev.onclick = () => {
-                    // 切换上一页校验当前页题目
-                    if(!checkCurrentPageComplete(startIdx)){
-                        showModal("本页有未完成的题目，请干员仔细检查！");
-                        return;
-                    }
-                    goPage(currentPageIndex - 1);
-                };
-                btnGroup.appendChild(btnPrev);
-            }
-            if (endIdx >= questions.length) {
-                const btnSubmit = document.createElement("button");
-                btnSubmit.className = "btn-submit";
-                btnSubmit.textContent = "生成检测报告";
-                btnSubmit.onclick = calcResult;
-                btnGroup.appendChild(btnSubmit);
-            } else {
-                const btnNext = document.createElement("button");
-                btnNext.className = "btn-next";
-                btnNext.textContent = "下一页";
-                btnNext.onclick = () => {
-                    // 切换下一页校验当前页题目
-                    if(!checkCurrentPageComplete(startIdx)){
-                        showModal("本页有未完成的题目，请干员仔细检查！");
-                        return;
-                    }
-                    goPage(currentPageIndex + 1);
-                };
-                btnGroup.appendChild(btnNext);
-            }
-            wrapDiv.appendChild(btnGroup);
-            fragment.appendChild(wrapDiv);
-            dom.appendChild(fragment);
-        }
+
         function goPage(p) {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
             document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
             currentPageIndex = p;
             if (p === 0) {
@@ -875,12 +1102,141 @@
                 document.getElementById("qPage4").classList.add("active");
             }
         }
+
+        function renderPage(pageDomId, startIdx) {
+            const dom = document.getElementById(pageDomId);
+            dom.innerHTML = "";
+            const endIdx = Math.min(startIdx + 5, questions.length);
+            const total = questions.length;
+            const fragment = document.createDocumentFragment();
+            const wrapDiv = document.createElement("div");
+
+            const progressText = document.createElement("div");
+            progressText.className = "progress-text";
+            progressText.textContent = `题目 ${startIdx+1}-${endIdx} / ${total}`;
+            const progressWrap = document.createElement("div");
+            progressWrap.className = "progress-wrap";
+            const progressBar = document.createElement("div");
+            progressBar.className = "progress-bar";
+            const progressFill = document.createElement("div");
+            progressFill.className = "progress-fill";
+            progressFill.style.width = ((endIdx / total) * 100).toFixed(1) + "%";
+            progressBar.appendChild(progressFill);
+            progressWrap.appendChild(progressText);
+            progressWrap.appendChild(progressBar);
+            wrapDiv.appendChild(progressWrap);
+
+            for (let i = startIdx; i < endIdx; i++) {
+                const q = questions[i];
+                const shuffled = shuffleArray(q.options);
+                const qDiv = document.createElement("div");
+                qDiv.className = "question";
+                if (answers[i] !== null) qDiv.classList.add("done");
+
+                const qTitle = document.createElement("div");
+                qTitle.className = "q-title";
+                qTitle.textContent = `${i+1}. ${q.question}`;
+                qDiv.appendChild(qTitle);
+
+                const optWrap = document.createElement("div");
+                optWrap.className = "options";
+                shuffled.forEach((opt) => {
+                    const origIdx = q.options.indexOf(opt);
+                    const label = document.createElement("label");
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `q_${i}`;
+                    input.value = origIdx;
+                    if (answers[i] === origIdx) input.checked = true;
+
+                    input.onchange = () => {
+                        answers[i] = origIdx;
+                        qDiv.classList.add("done");
+                        autoScrollNext(qDiv, i, endIdx);
+                    };
+
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(opt.text));
+                    optWrap.appendChild(label);
+                });
+                qDiv.appendChild(optWrap);
+                wrapDiv.appendChild(qDiv);
+            }
+
+            const btnGroup = document.createElement("div");
+            btnGroup.className = "btn-group";
+            if (startIdx > 0) {
+                const btnPrev = document.createElement("button");
+                btnPrev.className = "btn-prev";
+                btnPrev.textContent = "上一页";
+                btnPrev.onclick = () => {
+                    if (!checkCurrentPageComplete(startIdx)) {
+                        showModal("本页有未完成的题目，请干员仔细检查！");
+                        return;
+                    }
+                    goPage(currentPageIndex - 1);
+                };
+                btnGroup.appendChild(btnPrev);
+            }
+            if (endIdx >= questions.length) {
+                const btnSubmit = document.createElement("button");
+                btnSubmit.className = "btn-submit";
+                btnSubmit.textContent = "生成检测报告";
+                btnSubmit.onclick = calcResult;
+                btnGroup.appendChild(btnSubmit);
+            } else {
+                const btnNext = document.createElement("button");
+                btnNext.className = "btn-next";
+                btnNext.textContent = "下一页";
+                btnNext.onclick = () => {
+                    if (!checkCurrentPageComplete(startIdx)) {
+                        showModal("本页有未完成的题目，请干员仔细检查！");
+                        return;
+                    }
+                    goPage(currentPageIndex + 1);
+                };
+                btnGroup.appendChild(btnNext);
+            }
+            wrapDiv.appendChild(btnGroup);
+            fragment.appendChild(wrapDiv);
+            dom.appendChild(fragment);
+        }
+
+function autoScrollNext(currentQDiv, idx, endIdx) {
+    if (idx + 1 >= endIdx) return;
+    const parent = currentQDiv.parentNode;
+    const siblings = parent.querySelectorAll(".question");
+    let nextEl = null;
+    for (let k = 0; k < siblings.length; k++) {
+        if (siblings[k] === currentQDiv && k + 1 < siblings.length) {
+            nextEl = siblings[k + 1];
+            break;
+        }
+    }
+    if (!nextEl) return;
+    // 使用 scrollIntoView，block: 'nearest' 只做最小必要滚动
+    // 如果下一题已经在视口内，则完全不会滚动
+    nextEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+
+        function checkCurrentPageComplete(startIdx) {
+            const endIdx = Math.min(startIdx + 5, questions.length);
+            for (let i = startIdx; i < endIdx; i++) {
+                if (answers[i] === null) return false;
+            }
+            return true;
+        }
+
+        // ============================================================
+        //  计算结果 & 渲染结果页
+        // ============================================================
         function calcResult() {
             const unfinished = answers.some(x => x === null);
             if (unfinished) {
                 showModal("存在未完成的题目，请干员返回检查全部题目！");
                 return;
             }
+
             let score = { A: 0, B: 0, C: 0, D: 0 };
             for (let i = 0; i < questions.length; i++) {
                 const opt = questions[i].options[answers[i]];
@@ -889,30 +1245,135 @@
                 score.C += opt.score.C;
                 score.D += opt.score.D;
             }
-            const aLevel = score.A >= 10 ? "高" : "低";
-            const bLevel = score.B >= 10 ? "高" : "低";
-            const cLevel = score.C >= 10 ? "高" : "低";
-            const dLevel = score.D >= 10 ? "高" : "低";
+
+            // 阈值调整为 >=8 (降低观光客概率)
+            const aLevel = score.A >= 7 ? "高" : "低";
+            const bLevel = score.B >= 7 ? "高" : "低";
+            const cLevel = score.C >= 7 ? "高" : "低";
+            const dLevel = score.D >= 7 ? "高" : "低";
+
             const key = `A${aLevel}B${bLevel}C${cLevel}D${dLevel}`;
-            const resItem = resultMap[key];
+            const resItem = resultMap[key] || resultMap["A低B低C低D低"];
+
             document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
             document.getElementById("resultPage").classList.add("active");
-            document.getElementById("resImg").innerHTML = `<img src="${resItem.img}" alt="${resItem.title}">`;
+
             document.getElementById("resIdLine").innerText = `那么，尊敬的${playerName}干员，您的三角洲成分为：`;
-            document.getElementById("resTag").innerText = `${resItem.code} · ${resItem.title}`;
-            document.getElementById("resDim").textContent = `猛攻A:${score.A} ｜ 信息B:${score.B} ｜ 兜底C:${score.C} ｜ 贪欲D:${score.D}`;
+            document.getElementById("resTag").innerText = `${resItem.title} · ${resItem.code}`;
+
+            const engLine = resItem.codeExplain.join(".");
+            const cnArr = [];
+            resItem.codeExplain.forEach(item => {
+                const match = item.match(/\((.+?)\)/);
+                if (match) {
+                    const word = match[1];
+                    cnArr.push(wordCnMap[word] || word);
+                } else {
+                    cnArr.push(item);
+                }
+            });
+            const cnLine = cnArr.join("·");
+            document.getElementById("resCodeExplain").innerHTML = `${engLine}<br>${cnLine}`;
+
+            document.getElementById("resImg").innerHTML = `<img src="${resItem.img}" alt="${resItem.title}">`;
+
+            document.getElementById("resDim").innerHTML =
+                `猛攻 <span>${score.A}</span> ｜ 信息 <span>${score.B}</span> ｜ 团队 <span>${score.C}</span> ｜ 贪欲 <span>${score.D}</span>`;
+
+            document.getElementById("sliderTitle").innerText = `${playerName}的干员思维百分比`;
+            renderSliders(score);
+
             document.getElementById("resText").innerHTML = `<p>${resItem.desc}</p>`;
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
+
+        // ============================================================
+        //  百分比滑块
+        // ============================================================
+        function renderSliders(score) {
+            const container = document.getElementById("sliderContainer");
+            container.innerHTML = "";
+
+            const dims = [
+                { key: "A", label: "猛攻", leftLabel: "激进", rightLabel: "保守", val: score.A, color: "slider-color-a" },
+                { key: "B", label: "信息", leftLabel: "搜集", rightLabel: "鲁莽", val: score.B, color: "slider-color-b" },
+                { key: "C", label: "团队", leftLabel: "协作", rightLabel: "独狼", val: score.C, color: "slider-color-c" },
+                { key: "D", label: "贪欲", leftLabel: "暴食", rightLabel: "节制", val: score.D, color: "slider-color-d" }
+            ];
+
+            dims.forEach(d => {
+                const pct = Math.round((d.val / 20) * 100);
+                const pctRight = 100 - pct;
+
+                const item = document.createElement("div");
+                item.className = `slider-item ${d.color}`;
+
+                const labelRow = document.createElement("div");
+                labelRow.className = "slider-label";
+                labelRow.innerHTML =
+                    `<span class="left">${d.leftLabel}</span><span>${d.label}</span><span class="right">${d.rightLabel}</span>`;
+                item.appendChild(labelRow);
+
+                const track = document.createElement("div");
+                track.className = "slider-track";
+
+                const fillLeft = document.createElement("div");
+                fillLeft.className = "fill-left";
+                fillLeft.style.width = pct + "%";
+
+                const fillRight = document.createElement("div");
+                fillRight.className = "fill-right";
+                fillRight.style.width = pctRight + "%";
+
+                const center = document.createElement("div");
+                center.className = "center-line";
+
+                track.appendChild(fillLeft);
+                track.appendChild(fillRight);
+                track.appendChild(center);
+                item.appendChild(track);
+
+                const pctRow = document.createElement("div");
+                pctRow.className = "slider-pct";
+                pctRow.innerHTML =
+                    `<span class="pct-left">${pct}%</span><span class="pct-right">${pctRight}%</span>`;
+                item.appendChild(pctRow);
+
+                container.appendChild(item);
+            });
+        }
+
+        // ============================================================
+        //  复制结果
+        // ============================================================
         function copyResult() {
             const tag = document.getElementById("resTag").innerText;
             const desc = document.getElementById("resText").innerText;
-            const text = `【三角洲玩家人格检测】\n干员：${playerName}\n结果：${tag}\n${desc}\n完成测试下单享500W保底\nKOOK频道：8888666`;
+            const dimText = document.getElementById("resDim").innerText.replace(/<[^>]*>/g, '');
+            const pctItems = document.querySelectorAll("#sliderContainer .slider-item");
+            let pctStr = "";
+            pctItems.forEach(item => {
+                const label = item.querySelector(".slider-label span:nth-child(2)")?.innerText || "";
+                const pcts = item.querySelectorAll(".slider-pct span");
+                const leftPct = pcts[0]?.innerText || "0%";
+                const rightPct = pcts[1]?.innerText || "0%";
+                pctStr += `${label} ${leftPct} / ${rightPct}  `;
+            });
+
+            const text =
+                `【三角洲玩家人格检测】\n干员：${playerName}\n结果：${tag}\n${dimText}\n${pctStr.trim()}\n${desc}\n完成测试下单享500W保底\nKOOK频道：8888666`;
+
             navigator.clipboard.writeText(text).then(() => {
                 showModal("结果已复制，请干员发给客服吧！");
             }).catch(() => {
                 showModal("复制失败，请手动长按复制");
             });
         }
+
+        // ============================================================
+        //  重置
+        // ============================================================
         function resetTest() {
             answers = Array(questions.length).fill(null);
             playerName = "";
@@ -920,6 +1381,13 @@
             currentPageIndex = 0;
             goPage(0);
         }
+
+        // ============================================================
+        //  初始化
+        // ============================================================
+        document.addEventListener("DOMContentLoaded", function() {
+            goPage(0);
+        });
     </script>
 </body>
 </html>
