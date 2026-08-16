@@ -731,6 +731,9 @@
             document.getElementById("globalModal").classList.remove("show");
         }
 
+        // ============================================================
+        //  题目数据 (20题) - 仅改分数，题面选项文字不变
+        // ============================================================
         const questions = [{
             question: "开局落地，你的第一优先级是？",
             options: [
@@ -751,8 +754,8 @@
             question: "队友倒地，敌人还在架枪，你会？",
             options: [
                 { text: "二打三？优势在我！", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
-                { text: "给道具，尝试背人，同时安抚队友", score: { A: 1, B: 3, C: 1, D: 0 }, e: 3 },
-                { text: "安抚队友，准备录屏", score: { A: 1, B: 1, C: 3, D: 0 }, e: 3 },
+                { text: "给道具，尝试背人，同时安抚队友", score: { A: 1, B: 3, C: 1, D: 0 }, e: 6 },
+                { text: "安抚队友，准备录屏", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
                 { text: "优雅地整理遗容遗表", score: { A: 0, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
@@ -792,7 +795,7 @@
             options: [
                 { text: "我避你锋芒？", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
                 { text: "判断敌人装备及位置", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
-                { text: "思考是否能打，如果不能，产出计划B", score: { A: 1, B: 2, C: 2, D: 0 }, e: 3 },
+                { text: "思考是否能打，如果不能，产出计划B", score: { A: 1, B: 2, C: 2, D: 0 }, e: 0 },
                 { text: "你我今日本无缘，何必相见，小生此生就退下了", score: { A: 0, B: 1, C: 1, D: 2 }, e: 0 }
             ]
         }, {
@@ -846,7 +849,7 @@
         }, {
             question: "被敌人架住了，你第一反应是？",
             options: [
-                { text: "等我大招好你就完蛋了", score: { A: 2, B: 0, C: 0, D: 0 }, e: 3 },
+                { text: "等我大招好你就完蛋了", score: { A: 2, B: 0, C: 0, D: 0 }, e: 6 },
                 { text: "给道具，压位置，及时报点", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
                 { text: "搜集场上信息，制定计划", score: { A: 1, B: 2, C: 2, D: 0 }, e: 0 },
                 { text: "蹲着不动，因为神说过电子竞技没有静态视力", score: { A: 0, B: 1, C: 0, D: 2 }, e: 0 }
@@ -964,7 +967,7 @@
                 img: "./pic/echo.png",
                 desc: "全队的“活地图”+“移动雷达”，脚步方位报得比挂还准。不爱主动打架，但排点细节拉满，哪里有人、哪里有坑都给你报得明明白白，顺便还能顺手救队友。物资什么的完全不care，主打一个靠信息carry全队，是车队里的隐形功臣。"
             },
-            "A低B高C低D高": {
+            "A中B高C低D高": {
                 code: "S.T.N.G.",
                 codeExplain: ["S(wift)", "T(actical)", "N(oxious)", "G(host)"],
                 title: "虎头蜂",
@@ -1256,6 +1259,8 @@
             }
 
             let score = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+            let extremeCount = { A: 0, B: 0, C: 0, D: 0 };
+
             for (let i = 0; i < questions.length; i++) {
                 const opt = questions[i].options[answers[i]];
                 score.A += opt.score.A || 0;
@@ -1263,39 +1268,69 @@
                 score.C += opt.score.C || 0;
                 score.D += opt.score.D || 0;
                 if (opt.e) score.E += opt.e;
+                // 统计极端选项（+3分）
+                if (opt.score.A === 3) extremeCount.A++;
+                if (opt.score.B === 3) extremeCount.B++;
+                if (opt.score.C === 3) extremeCount.C++;
+                if (opt.score.D === 3) extremeCount.D++;
             }
 
-            // 1. 维度等级判定
-            const aLevel = score.A >= 30 ? "高" : (score.A >= 12 ? "中" : "低");
+            // 连续极端选项加成：≥3个 +20%，≥5个 +40%
+            for (let dim of ["A", "B", "C", "D"]) {
+                const count = extremeCount[dim];
+                if (count >= 5) {
+                    score[dim] = Math.round(score[dim] * 1.4);
+                } else if (count >= 3) {
+                    score[dim] = Math.round(score[dim] * 1.2);
+                }
+            }
+
+            // 维度等级判定（满分60）
+            // A：高≥28，中≥14，低<14
+            // B：高≥24，中≥10，低<10
+            // C：高≥22，中≥9，低<9
+            // D：高≥28，中≥14，低<14
+            const aLevel = score.A >= 28 ? "高" : (score.A >= 14 ? "中" : "低");
             const bLevel = score.B >= 24 ? "高" : (score.B >= 10 ? "中" : "低");
             const cLevel = score.C >= 22 ? "高" : (score.C >= 9 ? "中" : "低");
-            const dLevel = score.D >= 22 ? "高" : (score.D >= 9 ? "中" : "低");
+            const dLevel = score.D >= 28 ? "高" : (score.D >= 14 ? "中" : "低");
 
             let finalKey = `A${aLevel}B${bLevel}C${cLevel}D${dLevel}`;
 
-            // 2. 特殊判定：E 大招区分（战斗爽 vs 红发布鲁斯）
+            // 特殊判定：E 大招区分（战斗爽 vs 红发布鲁斯）
+            // E ≥ 10 才触发红发布鲁斯，E < 10 为战斗爽
             if (aLevel === "高" && bLevel === "中" && cLevel === "中" && dLevel === "中") {
-                finalKey = score.E >= 6 ? "A高B中C中D中_E高" : "A高B中C中D中_E低";
+                finalKey = score.E >= 10 ? "A高B中C中D中_E高" : "A高B中C中D中_E低";
             }
 
-            // 3. 硬门槛：极端人格追加检查
+            // 硬门槛：极端人格追加检查
+            // 嘉豪本豪：A ≥ 35
             if (aLevel === "高" && bLevel === "低" && cLevel === "低" && dLevel === "低") {
                 if (score.A < 35) finalKey = "A高B低C低D中";
             }
+            // 囤囤鼠：D ≥ 35
             if (aLevel === "低" && bLevel === "低" && cLevel === "低" && dLevel === "高") {
                 if (score.D < 35) finalKey = "A低B低C中D高";
             }
+            // 战地医生：C ≥ 30
             if (aLevel === "低" && bLevel === "低" && cLevel === "高" && dLevel === "低") {
                 if (score.C < 30) finalKey = "A低B低C中D低";
             }
+            // 虎头蜂（A中B高C低D高）：B ≥ 28 且 D ≥ 26
+            if (aLevel === "中" && bLevel === "高" && cLevel === "低" && dLevel === "高") {
+                if (score.B < 28 || score.D < 26) {
+                    if (score.B >= 28) finalKey = "A中B高C低D中";
+                    else if (score.D >= 26) finalKey = "A中B中C低D高";
+                    else finalKey = "A中B中C低D中";
+                }
+            }
 
-            // 4. 观光客：四项全低 且 总分 ≤ 8（满分60）
+            // 观光客：四项全低 且 总分 ≤ 8（满分60）
             if (aLevel === "低" && bLevel === "低" && cLevel === "低" && dLevel === "低") {
                 const total = score.A + score.B + score.C + score.D;
                 if (total <= 8) {
                     finalKey = "A低B低C低D低";
                 } else {
-                    // 总分 > 8 但四项都低 → 按最高分维度升格
                     const maxDim = Math.max(score.A, score.B, score.C, score.D);
                     if (maxDim === score.A) finalKey = "A中B低C低D低";
                     else if (maxDim === score.B) finalKey = "A低B中C低D低";
@@ -1304,10 +1339,9 @@
                 }
             }
 
-            // 5. 获取结果条目（精确匹配 → 最近邻匹配）
+            // 获取结果条目（精确匹配 → 最近邻匹配）
             let resItem = resultMap[finalKey];
             if (!resItem) {
-                // 5a. 提取当前组合的等级
                 const parts = finalKey.match(/A(高|中|低)B(高|中|低)C(高|中|低)D(高|中|低)/);
                 if (parts) {
                     const valMap = { "高": 3, "中": 2, "低": 1 };
@@ -1317,7 +1351,6 @@
                         C: valMap[parts[3]],
                         D: valMap[parts[4]]
                     };
-                    // 5b. 遍历所有已定义人格（排除 _E 特殊条目）
                     const allKeys = Object.keys(resultMap).filter(k => !k.includes("_E"));
                     let bestKey = allKeys[0];
                     let bestDist = Infinity;
@@ -1342,10 +1375,8 @@
                     resItem = resultMap[bestKey];
                 }
             }
-            // 终极兜底
             if (!resItem) resItem = resultMap["A低B低C低D低"];
 
-            // ===== 渲染结果页 =====
             document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
             document.getElementById("resultPage").classList.add("active");
 
