@@ -368,7 +368,6 @@
             text-align: justify;
             margin-top: 16px;
         }
-        /* ===== 滑块卡片 ===== */
         .slider-card {
             margin: 16px 0 12px;
             padding: 18px 16px 12px;
@@ -457,7 +456,6 @@
         .slider-item .slider-pct .pct-right {
             color: var(--text-sub);
         }
-        /* 四色赛博霓虹 */
         .slider-color-a .fill-left { color: #00f5ff; background: #00f5ff; }
         .slider-color-a .fill-right { background: rgba(0, 245, 255, 0.15); }
         .slider-color-b .fill-left { color: #ff00ff; background: #ff00ff; }
@@ -467,7 +465,6 @@
         .slider-color-d .fill-left { color: #ffaa00; background: #ffaa00; }
         .slider-color-d .fill-right { background: rgba(255, 170, 0, 0.15); }
 
-        /* ===== 中英释义行 ===== */
         .code-explain-line {
             text-align: center;
             color: var(--main-green);
@@ -479,7 +476,6 @@
             text-shadow: 0 0 8px rgba(0, 255, 177, 0.55);
         }
 
-        /* ===== 二维码 ===== */
         .qr-wrap {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -527,7 +523,6 @@
             text-shadow: 0 0 8px var(--green-glow);
         }
 
-        /* ===== 弹窗 ===== */
         .modal-mask {
             position: fixed;
             inset: 0;
@@ -609,7 +604,6 @@
             box-shadow: 0 0 12px var(--green-glow);
         }
 
-        /* ===== 自适应 ===== */
         @media (max-width: 520px) {
             .qr-wrap {
                 grid-template-columns: repeat(2, 1fr);
@@ -657,7 +651,6 @@
 </head>
 <body>
 
-    <!-- 弹窗 -->
     <div class="modal-mask" id="globalModal">
         <div class="modal-box">
             <h3 class="modal-title">检测提示</h3>
@@ -666,13 +659,11 @@
         </div>
     </div>
 
-    <!-- 顶部LOGO -->
     <div class="logo-wrap">
         <img src="pic/起源电竞logo.png" alt="起源电竞" style="height:250px;">
     </div>
 
     <div class="container">
-        <!-- 开始页 -->
         <div id="startPage" class="page active">
             <h2 class="title">起源电竞俱乐部·三角洲属性检测</h2>
             <p class="desc">20道题测出你的本命单子</p>
@@ -686,13 +677,11 @@
             <button class="btn-start" onclick="startTest()" style="width:100%">开始检测</button>
         </div>
 
-        <!-- 答题页 ×4 -->
         <div id="qPage1" class="page"></div>
         <div id="qPage2" class="page"></div>
         <div id="qPage3" class="page"></div>
         <div id="qPage4" class="page"></div>
 
-        <!-- 结果页 -->
         <div id="resultPage" class="page">
             <div class="result-id-line" id="resIdLine"></div>
             <div class="result-tag" id="resTag"></div>
@@ -724,9 +713,6 @@
     </div>
 
     <script>
-        // ============================================================
-        //  工具函数
-        // ============================================================
         function shuffleArray(arr) {
             const a = [...arr];
             for (let i = a.length - 1; i > 0; i--) {
@@ -745,175 +731,168 @@
             document.getElementById("globalModal").classList.remove("show");
         }
 
-        // ============================================================
-        //  题目数据 (20题)
-        // ============================================================
         const questions = [{
             question: "开局落地，你的第一优先级是？",
             options: [
-                { text: "脱头甲提速，你们的王降临了！", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "观察局势，防止公式化闪击", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "下飞机前就已经思考好路线，指挥队友一起行动", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "嘿嘿饭饭", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "脱头甲提速，你们的王降临了！", score: { A: 3, B: -1, C: 0, D: 0 }, e: 0 },
+                { text: "观察局势，防止公式化闪击", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "下飞机前就已经思考好路线，指挥队友一起行动", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "嘿嘿饭饭", score: { A: 0, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }, {
             question: "转角突然遭遇敌人，你第一反应是？",
             options: [
-                { text: "窝来铜泥丸（一阵激昂的鼓点音乐响起）", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "道具压制，抢夺枪位", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "喊队友架枪，配合夹击", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "尖叫", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "窝来铜泥丸（一阵激昂的鼓点音乐响起）", score: { A: 3, B: -1, C: -1, D: 0 }, e: 0 },
+                { text: "道具压制，抢夺枪位", score: { A: 2, B: 2, C: 0, D: 0 }, e: 0 },
+                { text: "喊队友架枪，配合夹击", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "尖叫", score: { A: 0, B: 0, C: -1, D: 2 }, e: 0 }
             ]
         }, {
             question: "队友倒地，敌人还在架枪，你会？",
             options: [
-                { text: "二打三？优势在我！", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "给道具，尝试背人，同时安抚队友", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "安抚队友，准备录屏", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "优雅地整理遗容遗表", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "二打三？优势在我！", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "给道具，尝试背人，同时安抚队友", score: { A: 1, B: 3, C: 1, D: 0 }, e: 3 },
+                { text: "安抚队友，准备录屏", score: { A: 1, B: 1, C: 3, D: 0 }, e: 3 },
+                { text: "优雅地整理遗容遗表", score: { A: 0, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "你路过一个已知的高价值刷新点，你会？",
             options: [
-                { text: "跳拉一下空气，放生一些金弹", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先绕一圈排点，确认安全再摸", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "让队友先摸，自己架枪，保持一级战备警戒", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "直接钻进去，我是说万一呢？", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "跳拉一下空气，放生一些金弹", score: { A: 3, B: -1, C: 0, D: 0 }, e: 0 },
+                { text: "先绕一圈排点，确认安全再摸", score: { A: 0, B: 3, C: 1, D: 1 }, e: 0 },
+                { text: "让队友先摸，自己架枪，保持一级战备警戒", score: { A: 0, B: 1, C: 3, D: 1 }, e: 0 },
+                { text: "直接钻进去，我是说万一呢？", score: { A: 1, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }, {
             question: "对局中期，你更倾向于？",
             options: [
-                { text: "到处找人打架，主动推进", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "占住有利位置，收集全场信息", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "跟队友抱团，互相照应推进", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "还在刷抖音", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "到处找人打架，主动推进", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "占住有利位置，收集全场信息", score: { A: 1, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "跟队友抱团，互相照应推进", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "还在刷抖音", score: { A: 0, B: 0, C: -1, D: 2 }, e: 0 }
             ]
         }, {
             question: "听到远处有枪声，你的第一想法？",
             options: [
-                { text: "怒目狰狞，准备撕咬", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "听声辨位，判断交战双方位置", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "判断全场人员位置，决定是否参与劝架", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "打了他们就不能打我了喔，我得吃饭", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "怒目狰狞，准备撕咬", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "听声辨位，判断交战双方位置", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "判断全场人员位置，决定是否参与劝架", score: { A: 1, B: 2, C: 2, D: 0 }, e: 0 },
+                { text: "打了他们就不能打我了喔，我得吃饭", score: { A: 0, B: 0, C: 0, D: 2 }, e: 0 }
             ]
         }, {
             question: "搜物资点的时候，你的习惯是？",
             options: [
-                { text: "搞笑，清图了不都是我的了吗？", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "一边搜一边排点，每个角落都排，不漏一个点位", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "检查备甲备头甲修针剂和各类药物", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "只盯着红金，再不济蓝紫呢，塞满裤裆再说", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "搞笑，清图了不都是我的了吗？", score: { A: 3, B: -1, C: -1, D: 1 }, e: 0 },
+                { text: "一边搜一边排点，每个角落都排，不漏一个点位", score: { A: 0, B: 3, C: 1, D: 1 }, e: 0 },
+                { text: "检查备甲备头甲修针剂和各类药物", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "只盯着红金，再不济蓝紫呢，塞满裤裆再说", score: { A: 0, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "撤离点开启，路上有一队人拦着，你会？",
             options: [
-                { text: "我避你锋芒？", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "判断敌人装备及位置", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "思考是否能打，如果不能，产出计划B", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "你我今日本无缘，何必相见，小生此生就退下了", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "我避你锋芒？", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "判断敌人装备及位置", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "思考是否能打，如果不能，产出计划B", score: { A: 1, B: 2, C: 2, D: 0 }, e: 3 },
+                { text: "你我今日本无缘，何必相见，小生此生就退下了", score: { A: 0, B: 1, C: 1, D: 2 }, e: 0 }
             ]
         }, {
             question: "发现敌人背身，你会？",
             options: [
-                { text: "请他吃油条", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "瞄准敌方头线，观察敌人队友位置", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "思考战术，指挥队友，顺手摁住嘉豪的喷气", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "这就是我逃跑的好时机啊！", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "请他吃油条", score: { A: 3, B: 0, C: 0, D: 0 }, e: 0 },
+                { text: "瞄准敌方头线，观察敌人队友位置", score: { A: 1, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "思考战术，指挥队友，顺手摁住嘉豪的喷气", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "这就是我逃跑的好时机啊！", score: { A: 0, B: 1, C: 0, D: 2 }, e: 0 }
             ]
         }, {
             question: "队友抢了你盯上的装备，你会？",
             options: [
-                { text: "吃吧美眉，阿哥仓库多得是（叼玫瑰花）（喷气）（13切枪）（帅气の离开）", score: { A: 1, B: 0, C: 0,
-                        D: 0 } },
-                { text: "啧（咂舌）", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "队友拿了也一样，团队收益最重要", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "队友抢不过我的", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "吃吧美眉，阿哥仓库多得是（叼玫瑰花）（喷气）（13切枪）（帅气の离开）", score: { A: 2, B: 0, C: 1, D: -1 }, e: 0 },
+                { text: "啧（咂舌）", score: { A: 1, B: 2, C: 0, D: 1 }, e: 0 },
+                { text: "队友拿了也一样，团队收益最重要", score: { A: 0, B: 0, C: 3, D: 1 }, e: 0 },
+                { text: "队友抢不过我的", score: { A: 1, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "打不过对面，队伍要撤退，你会？",
             options: [
-                { text: "挂", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先找好撤退路线，给队友报点", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "在一个能架到对面的位置，掩护队友后撤，自己最后一个走", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "跑路了兄弟跑路了", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "挂", score: { A: 2, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "先找好撤退路线，给队友报点", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "在一个能架到对面的位置，掩护队友后撤，自己最后一个走", score: { A: 1, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "跑路了兄弟跑路了", score: { A: 0, B: 1, C: 0, D: 2 }, e: 0 }
             ]
         }, {
             question: "进一个新区域，你首先做的是？",
             options: [
-                { text: "吞噬一些针剂，轮转一些技能CD", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "排点", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "原地听脚步，同时架来时路，观察是否有人尾随", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "饭来", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "吞噬一些针剂，轮转一些技能CD", score: { A: 2, B: 0, C: 0, D: 1 }, e: 0 },
+                { text: "排点", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "原地听脚步，同时架来时路，观察是否有人尾随", score: { A: 1, B: 2, C: 2, D: 0 }, e: 0 },
+                { text: "饭来", score: { A: 0, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }, {
             question: "队友提议去打BOSS，你会？",
             options: [
-                { text: "懒得去", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先排人，一步步确认信息，最后再打BOSS", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "爽朗地向兄弟展示刚学的无伤打BOSS的技巧", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "我来了非洲之心/海洋之泪", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "懒得去", score: { A: 2, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "先排人，一步步确认信息，最后再打BOSS", score: { A: 0, B: 3, C: 1, D: 1 }, e: 0 },
+                { text: "爽朗地向兄弟展示刚学的无伤打BOSS的技巧", score: { A: 1, B: 1, C: 3, D: 1 }, e: 0 },
+                { text: "我来了非洲之心/海洋之泪", score: { A: 0, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }, {
             question: "身上装备已经很不错了，你会？",
             options: [
-                { text: "不可能，我的包里只有备头备甲", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "见好就收，观察局势，准备撤离", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "把多余的物资分给钱少的队友", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "装备和物资有什么关系？塞满背包再说", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "不可能，我的包里只有备头备甲", score: { A: 2, B: 0, C: 1, D: -1 }, e: 0 },
+                { text: "见好就收，观察局势，准备撤离", score: { A: 0, B: 3, C: 1, D: 1 }, e: 0 },
+                { text: "把多余的物资分给钱少的队友", score: { A: 0, B: 1, C: 3, D: 1 }, e: 0 },
+                { text: "装备和物资有什么关系？塞满背包再说", score: { A: 1, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "被敌人架住了，你第一反应是？",
             options: [
-                { text: "等我大招好你就完蛋了", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "给道具，压位置，及时报点", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "搜集场上信息，制定计划", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "蹲着不动，因为神说过电子竞技没有静态视力", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "等我大招好你就完蛋了", score: { A: 2, B: 0, C: 0, D: 0 }, e: 3 },
+                { text: "给道具，压位置，及时报点", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "搜集场上信息，制定计划", score: { A: 1, B: 2, C: 2, D: 0 }, e: 0 },
+                { text: "蹲着不动，因为神说过电子竞技没有静态视力", score: { A: 0, B: 1, C: 0, D: 2 }, e: 0 }
             ]
         }, {
             question: "你玩游戏的核心乐趣是？",
             options: [
-                { text: "击杀敌人的爽感", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "掌控全场信息的成就感", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "和队友配合赢下对局的快乐", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "出货囤货的满足感", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "击杀敌人的爽感", score: { A: 3, B: 0, C: -1, D: 0 }, e: 0 },
+                { text: "掌控全场信息的成就感", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "和队友配合赢下对局的快乐", score: { A: 0, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "出货囤货的满足感", score: { A: 0, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }, {
             question: "开局队友想去打架，但你正在吃饭，你会？",
             options: [
-                { text: "来了宝♂贝♂", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "先排完自己这片的信息，再和队友汇合", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "OK啊我收到", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "兄弟，我快破产了", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "来了宝♂贝♂", score: { A: 3, B: 0, C: 0, D: 0 }, e: 0 },
+                { text: "先排完自己这片的信息，再和队友汇合", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "OK啊我收到", score: { A: 1, B: 0, C: 3, D: 0 }, e: 0 },
+                { text: "兄弟，我快破产了", score: { A: 0, B: 0, C: 0, D: 2 }, e: 0 }
             ]
         }, {
             question: "舔包的时候，你优先拿？",
             options: [
-                { text: "备头备甲", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "针医疗包甲修", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "先标，给队友报，队友优先吃", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "小孩做选择，大人全部ALL IN", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "备头备甲", score: { A: 2, B: 0, C: 1, D: 0 }, e: 0 },
+                { text: "针医疗包甲修", score: { A: 0, B: 2, C: 1, D: 1 }, e: 0 },
+                { text: "先标，给队友报，队友优先吃", score: { A: 0, B: 0, C: 3, D: 1 }, e: 0 },
+                { text: "小孩做选择，大人全部ALL IN", score: { A: 1, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "对局快结束，撤离时间不多了，你会？",
             options: [
-                { text: "懒得算包，31抖枪，展示赤枭", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "规划好撤离路线，稳步往撤离点走", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "配合排点，杜绝被阴，确保大家都能走", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "再让我……吃一个……容器……（嗝）", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "懒得算包，31抖枪，展示赤枭", score: { A: 2, B: 0, C: 0, D: 0 }, e: 0 },
+                { text: "规划好撤离路线，稳步往撤离点走", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "配合排点，杜绝被阴，确保大家都能走", score: { A: 0, B: 1, C: 3, D: 1 }, e: 0 },
+                { text: "再让我……吃一个……容器……（嗝）", score: { A: 0, B: 0, C: -1, D: 3 }, e: 0 }
             ]
         }, {
             question: "以下哪种描述最符合你平时的玩法？",
             options: [
-                { text: "主打一个干架，见人就上", score: { A: 1, B: 0, C: 0, D: 0 } },
-                { text: "主打一个细节，信息拉满", score: { A: 0, B: 1, C: 0, D: 0 } },
-                { text: "主打一个团队，队友优先", score: { A: 0, B: 0, C: 1, D: 0 } },
-                { text: "主打一个暴富，出货至上", score: { A: 0, B: 0, C: 0, D: 1 } }
+                { text: "主打一个干架，见人就上", score: { A: 3, B: -1, C: -1, D: 0 }, e: 0 },
+                { text: "主打一个细节，信息拉满", score: { A: 0, B: 3, C: 1, D: 0 }, e: 0 },
+                { text: "主打一个团队，队友优先", score: { A: 0, B: 1, C: 3, D: 0 }, e: 0 },
+                { text: "主打一个暴富，出货至上", score: { A: 0, B: 0, C: 0, D: 3 }, e: 0 }
             ]
         }];
 
-        // ============================================================
-        //  结果映射 (16人格) - 已根据最新片段更新
-        // ============================================================
         const resultMap = {
             "A高B高C高D高": {
                 code: "D.A.S.H.",
@@ -945,7 +924,7 @@
             },
             "A高B低C高D高": {
                 code: "B.R.U.T.",
-                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(Tactics)"],
+                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(actics)"],
                 title: "战斗爽",
                 img: "./pic/battle.png",
                 desc: "纯纯的愣头青，进图就找人干架。不探点、不舔包、不救队友，输赢全看当天手感。你玩游戏没有别的目的，就是享受开枪对枪的快感，物资够用就行，队友随缘就行，主打一个生死有命富贵在天，爽到就完事了。"
@@ -1026,12 +1005,65 @@
                 title: "观光客",
                 img: "./pic/bird.png",
                 desc: "纯来三角洲旅游的观光客，主打一个体验生活。不打架、不摸金、不救队友，哪好看去哪，哪新鲜逛哪。对局输赢无所谓，物资多少不关心，主打一个逛gai式游戏，玩的就是一个休闲放松，属于三角洲里的佛系稀有物种。"
+            },
+            "A高B中C中D中_E高": {
+                code: "R.U.S.H.",
+                codeExplain: ["R(uthless)", "U(nstoppable)", "S(avage)", "H(unter)"],
+                title: "红发布鲁斯",
+                img: "./pic/bruce.png",
+                desc: "电刺钻进大脑，翻滚代替思考。当锚点放下的那一刻我比任何人都想见到你。三角洲鼎鼎有名的布鲁斯，锚点一放就是冲。见人就打滚，魔王以下我无敌，魔王之上一换一。但和嘉豪不同的是——我在等大招好，你在等什么？"
+            },
+            "A高B中C中D中_E低": {
+                code: "B.R.U.T.",
+                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(actics)"],
+                title: "战斗爽",
+                img: "./pic/battle.png",
+                desc: "纯纯的愣头青，进图就找人干架。会排点，会配合，但不多。你玩游戏的核心就是战斗的爽感，物资够用就行，队友随缘就行，主打一个生死有命富贵在天，爽到就完事了。"
+            },
+            "A高B低C低D中": {
+                code: "B.R.U.T.",
+                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(actics)"],
+                title: "战斗爽",
+                img: "./pic/battle.png",
+                desc: "你有嘉豪的莽劲，但还不够疯。会打，会冲，但偶尔也会看一眼队友在哪。属于猛攻但还没到极致的那一档，继续努力，下一个嘉豪就是你。"
+            },
+            "A低B低C中D高": {
+                code: "S.T.N.G.",
+                codeExplain: ["S(wift)", "T(actical)", "N(oxious)", "G(host)"],
+                title: "虎头蜂",
+                img: "./pic/damn.png",
+                desc: "贪欲拉满，但还没到囤囤鼠那种不要命的程度。会摸金，会搜点，但偶尔也会帮队友架个枪。属于贪欲型里的务实派。"
+            },
+            "A低B低C中D低": {
+                code: "H.E.A.L.",
+                codeExplain: ["H(ealer)", "E(mpathetic)", "A(id)", "L(ifeline)"],
+                title: "战地医生",
+                img: "./pic/die.png",
+                desc: "你有团队心，但还没到纯工具人的地步。会救人、会给药，但偶尔也会摸摸包、打打枪。属于团队型里的多面手。"
+            },
+            "A中B低C低D低": {
+                code: "B.R.U.T.",
+                codeExplain: ["B(rawl)", "R(apid)", "U(nrestrained)", "T(actics)"],
+                title: "战斗爽",
+                img: "./pic/battle.png",
+                desc: "猛攻未满，但爱打。属于战斗爽的入门级，多冲几次就能毕业。"
+            },
+            "A低B中C低D低": {
+                code: "O.B.S.R.",
+                codeExplain: ["O(mniscient)", "B(iding)", "S(ilent)", "R(eaper)"],
+                title: "复仇者",
+                img: "./pic/6.png",
+                desc: "信息有一点，但不多。你正在成长为复仇者的路上，再多蹲几局就出师了。"
+            },
+            "A低B低C低D中": {
+                code: "S.T.N.G.",
+                codeExplain: ["S(wift)", "T(actical)", "N(oxious)", "G(host)"],
+                title: "虎头蜂",
+                img: "./pic/damn.png",
+                desc: "贪欲入门，爱摸金但还没到痴迷。保持这个势头，囤囤鼠在向你招手。"
             }
         };
 
-        // ============================================================
-        //  中文映射表 (保持原有，新单词可能无映射，但不影响显示)
-        // ============================================================
         const wordCnMap = {
             "ia": "嘉", "ao": "豪", "en": "本", "ren": "人",
             "un": "无拘", "ite": "夺取", "ll": "全部", "tack": "进攻",
@@ -1039,7 +1071,7 @@
             "ield": "收割", "azy": "狂热", "ush": "冲锋", "est": "兴致",
             "outh": "少年", "acrifice": "牺牲", "id": "援助", "ow": "誓言",
             "eliable": "可靠", "isk": "冒险", "vade": "突袭", "torm": "冲击",
-            "een": "敏锐", "rawl": "混战", "apid": "迅猛", "nrestrained": "不羁",
+            "een": "敏锐", "rawl": "混战", "apid": "迅猛", "nrestrained": "不受约束",
             "actics": "战术", "ecure": "稳妥", "ware": "洞察", "leet": "撤离",
             "cape": "脱身", "cho": "回响", "udio": "听觉", "adar": "雷达",
             "ense": "感知", "oney": "财富", "ncome": "收益", "nest": "囤积",
@@ -1048,8 +1080,6 @@
             "lly": "队友", "eal": "治疗", "ndure": "坚守", "oyal": "忠诚",
             "lutton": "贪婪", "ich": "丰厚", "ndless": "无尽", "eposit": "储藏",
             "isit": "到访", "dle": "闲逛", "reak": "脱身", "asily": "随性",
-            "razy": "狂热", "ver": "超越", "trike": "打击", "ttack": "突袭",
-            "teal": "窃取", "reasure": "宝藏", "nvest": "投资", "torm": "风暴",
             "ominant": "统治", "dept": "娴熟", "harp": "敏锐", "ardcore": "硬核",
             "uardian": "守护", "verwhelming": "压倒", "pex": "顶点", "errifying": "恐惧",
             "unt": "狩猎", "nite": "联合", "teal": "窃取", "reasure": "宝藏",
@@ -1060,20 +1090,12 @@
             "mniscient": "全知", "iding": "等待", "ilent": "无声", "eaper": "收割",
             "crounger": "拾荒", "hancer": "投机", "colyte": "跟班", "ulture": "秃鹫",
             "ealer": "治疗", "mpathetic": "共情", "id": "援助", "ifeline": "生命线",
-            "iser": "守财", "nload": "清空", "ooter": "掠夺", "xcessive": "过度", "rawl": "混战",
-            "apid": "迅猛", "nrestrained": "不受约束", "actics": "战术", "ao": "豪"
+            "iser": "守财", "nload": "清空", "ooter": "掠夺", "xcessive": "过度"
         };
 
-        // ============================================================
-        //  状态变量
-        // ============================================================
         let playerName = "";
         let currentPageIndex = 0;
         let answers = Array(questions.length).fill(null);
-
-        // ============================================================
-        //  核心函数
-        // ============================================================
 
         function startTest() {
             const inputVal = document.getElementById("playerId").value.trim();
@@ -1203,21 +1225,19 @@
             dom.appendChild(fragment);
         }
 
-function autoScrollNext(currentQDiv, idx, endIdx) {
-    if (idx + 1 >= endIdx) return;
-    const parent = currentQDiv.parentNode;
-    const siblings = parent.querySelectorAll(".question");
-    let nextEl = null;
-    for (let k = 0; k < siblings.length; k++) {
-        if (siblings[k] === currentQDiv && k + 1 < siblings.length) {
-            nextEl = siblings[k + 1];
-            break;
-        }
-    }
-    if (!nextEl) return;
-    // 使用 scrollIntoView，block: 'nearest' 只做最小必要滚动
-    // 如果下一题已经在视口内，则完全不会滚动
-    nextEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        function autoScrollNext(currentQDiv, idx, endIdx) {
+            if (idx + 1 >= endIdx) return;
+            const parent = currentQDiv.parentNode;
+            const siblings = parent.querySelectorAll(".question");
+            let nextEl = null;
+            for (let k = 0; k < siblings.length; k++) {
+                if (siblings[k] === currentQDiv && k + 1 < siblings.length) {
+                    nextEl = siblings[k + 1];
+                    break;
+                }
+            }
+            if (!nextEl) return;
+            nextEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
 
         function checkCurrentPageComplete(startIdx) {
@@ -1228,9 +1248,6 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             return true;
         }
 
-        // ============================================================
-        //  计算结果 & 渲染结果页
-        // ============================================================
         function calcResult() {
             const unfinished = answers.some(x => x === null);
             if (unfinished) {
@@ -1238,24 +1255,97 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
                 return;
             }
 
-            let score = { A: 0, B: 0, C: 0, D: 0 };
+            let score = { A: 0, B: 0, C: 0, D: 0, E: 0 };
             for (let i = 0; i < questions.length; i++) {
                 const opt = questions[i].options[answers[i]];
-                score.A += opt.score.A;
-                score.B += opt.score.B;
-                score.C += opt.score.C;
-                score.D += opt.score.D;
+                score.A += opt.score.A || 0;
+                score.B += opt.score.B || 0;
+                score.C += opt.score.C || 0;
+                score.D += opt.score.D || 0;
+                if (opt.e) score.E += opt.e;
             }
 
-            // 阈值调整为 >=8 (降低观光客概率)
-            const aLevel = score.A >= 7 ? "高" : "低";
-            const bLevel = score.B >= 7 ? "高" : "低";
-            const cLevel = score.C >= 7 ? "高" : "低";
-            const dLevel = score.D >= 7 ? "高" : "低";
+            // 1. 维度等级判定
+            const aLevel = score.A >= 30 ? "高" : (score.A >= 12 ? "中" : "低");
+            const bLevel = score.B >= 24 ? "高" : (score.B >= 10 ? "中" : "低");
+            const cLevel = score.C >= 22 ? "高" : (score.C >= 9 ? "中" : "低");
+            const dLevel = score.D >= 22 ? "高" : (score.D >= 9 ? "中" : "低");
 
-            const key = `A${aLevel}B${bLevel}C${cLevel}D${dLevel}`;
-            const resItem = resultMap[key] || resultMap["A低B低C低D低"];
+            let finalKey = `A${aLevel}B${bLevel}C${cLevel}D${dLevel}`;
 
+            // 2. 特殊判定：E 大招区分（战斗爽 vs 红发布鲁斯）
+            if (aLevel === "高" && bLevel === "中" && cLevel === "中" && dLevel === "中") {
+                finalKey = score.E >= 6 ? "A高B中C中D中_E高" : "A高B中C中D中_E低";
+            }
+
+            // 3. 硬门槛：极端人格追加检查
+            if (aLevel === "高" && bLevel === "低" && cLevel === "低" && dLevel === "低") {
+                if (score.A < 35) finalKey = "A高B低C低D中";
+            }
+            if (aLevel === "低" && bLevel === "低" && cLevel === "低" && dLevel === "高") {
+                if (score.D < 35) finalKey = "A低B低C中D高";
+            }
+            if (aLevel === "低" && bLevel === "低" && cLevel === "高" && dLevel === "低") {
+                if (score.C < 30) finalKey = "A低B低C中D低";
+            }
+
+            // 4. 观光客：四项全低 且 总分 ≤ 8（满分60）
+            if (aLevel === "低" && bLevel === "低" && cLevel === "低" && dLevel === "低") {
+                const total = score.A + score.B + score.C + score.D;
+                if (total <= 8) {
+                    finalKey = "A低B低C低D低";
+                } else {
+                    // 总分 > 8 但四项都低 → 按最高分维度升格
+                    const maxDim = Math.max(score.A, score.B, score.C, score.D);
+                    if (maxDim === score.A) finalKey = "A中B低C低D低";
+                    else if (maxDim === score.B) finalKey = "A低B中C低D低";
+                    else if (maxDim === score.C) finalKey = "A低B低C中D低";
+                    else finalKey = "A低B低C低D中";
+                }
+            }
+
+            // 5. 获取结果条目（精确匹配 → 最近邻匹配）
+            let resItem = resultMap[finalKey];
+            if (!resItem) {
+                // 5a. 提取当前组合的等级
+                const parts = finalKey.match(/A(高|中|低)B(高|中|低)C(高|中|低)D(高|中|低)/);
+                if (parts) {
+                    const valMap = { "高": 3, "中": 2, "低": 1 };
+                    const playerVals = {
+                        A: valMap[parts[1]],
+                        B: valMap[parts[2]],
+                        C: valMap[parts[3]],
+                        D: valMap[parts[4]]
+                    };
+                    // 5b. 遍历所有已定义人格（排除 _E 特殊条目）
+                    const allKeys = Object.keys(resultMap).filter(k => !k.includes("_E"));
+                    let bestKey = allKeys[0];
+                    let bestDist = Infinity;
+                    for (let key of allKeys) {
+                        const match = key.match(/A(高|中|低)B(高|中|低)C(高|中|低)D(高|中|低)/);
+                        if (!match) continue;
+                        const templateVals = {
+                            A: valMap[match[1]],
+                            B: valMap[match[2]],
+                            C: valMap[match[3]],
+                            D: valMap[match[4]]
+                        };
+                        let dist = 0;
+                        for (let d of ["A", "B", "C", "D"]) {
+                            dist += Math.abs(playerVals[d] - templateVals[d]);
+                        }
+                        if (dist < bestDist) {
+                            bestDist = dist;
+                            bestKey = key;
+                        }
+                    }
+                    resItem = resultMap[bestKey];
+                }
+            }
+            // 终极兜底
+            if (!resItem) resItem = resultMap["A低B低C低D低"];
+
+            // ===== 渲染结果页 =====
             document.querySelectorAll(".page").forEach(el => el.classList.remove("active"));
             document.getElementById("resultPage").classList.add("active");
 
@@ -1289,9 +1379,6 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
-        // ============================================================
-        //  百分比滑块
-        // ============================================================
         function renderSliders(score) {
             const container = document.getElementById("sliderContainer");
             container.innerHTML = "";
@@ -1304,7 +1391,7 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             ];
 
             dims.forEach(d => {
-                const pct = Math.round((d.val / 20) * 100);
+                const pct = Math.round((d.val / 60) * 100);
                 const pctRight = 100 - pct;
 
                 const item = document.createElement("div");
@@ -1345,9 +1432,6 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             });
         }
 
-        // ============================================================
-        //  复制结果
-        // ============================================================
         function copyResult() {
             const tag = document.getElementById("resTag").innerText;
             const desc = document.getElementById("resText").innerText;
@@ -1372,9 +1456,6 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             });
         }
 
-        // ============================================================
-        //  重置
-        // ============================================================
         function resetTest() {
             answers = Array(questions.length).fill(null);
             playerName = "";
@@ -1383,9 +1464,6 @@ function autoScrollNext(currentQDiv, idx, endIdx) {
             goPage(0);
         }
 
-        // ============================================================
-        //  初始化
-        // ============================================================
         document.addEventListener("DOMContentLoaded", function() {
             goPage(0);
         });
